@@ -13,21 +13,18 @@ public class ImageImpl implements Image {
 
   private final Stack<ImageState> revisions;
 
-  public ImageImpl(ImageStateImpl state) {
-    if (state == null) {
-      throw new IllegalArgumentException("ImageStateImpl cannot be null");
+  /**
+   * Constructs a new image with the given list of pixels.
+   *
+   * @param pixels the pixels of the image
+   */
+  public ImageImpl(List<Pixel> pixels) {
+    // TODO: We might need to check if there is a pixel in every slot when constructing the image
+    if (pixels == null || pixels.isEmpty()) {
+      throw new IllegalArgumentException("Pixels cannot be null");
     }
     this.revisions = new Stack<>();
     this.revisions.push(new ImageStateImpl(pixels, "Initial image"));
-  }
-
-  /**
-   * Returns the most recent state of the image.
-   *
-   * @return the current state of the image
-   */
-  private ImageState state() {
-    return this.revisions.peek();
   }
 
   @Override

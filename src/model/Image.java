@@ -11,18 +11,30 @@ public interface Image {
    */
   ArrayList<Pixel> getPixels();
 
-  // TODO: Ben work on visualize
-  void visualize(VisualizeType type);
+  /**
+   * Transforms an image to visualize a given color channel.
+   *
+   * <p>To visualize a color channel in an image, </p>
+   *
+   * @param channel the {@link ColorChannel} to visualize in the image
+   */
+  void visualize(ColorChannel channel);
 
   // TODO: Smita work on flip/shade
   void flip(FlipType type);
 
   void shade(int val);
 
-  enum VisualizeType {
+  /**
+   * Represents available color channels to visualize in an image.
+   */
+  enum ColorChannel {
     RED, GREEN, BLUE, VALUE, INTENSITY, LUMA
   }
 
+  /**
+   * Represents available axis to flip an image.
+   */
   enum FlipType {
     HORIZONTAL, VERTICAL
   }
