@@ -12,17 +12,26 @@ public interface Image {
   ArrayList<Pixel> getPixels();
 
   /**
-   * Gets the width of the Image.
+   * Updates the image with the given pixels and log message.
    *
-   * @return an integer representing the width.
+   * @param pixels     the pixels to update the image with
+   * @param logMessage a message with changes made to the image
    */
-  int getWidth();
+  void update(List<Pixel> pixels, String logMessage);
 
-  /**
-   * Gets the height of the Image.
-   *
-   * @return an integer representing the height.
-   */
-  int getHeight();
+  // TODO: Ben work on visualize
+  void visualize(VisualizeType type);
 
+  // TODO: Smita work on flip/shade
+  void flip(FlipType type);
+
+  void shade(int val);
+
+  enum VisualizeType {
+    RED, GREEN, BLUE, VALUE, INTENSITY, LUMA
+  }
+
+  enum FlipType {
+    HORIZONTAL, VERTICAL
+  }
 }

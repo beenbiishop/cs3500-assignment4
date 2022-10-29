@@ -1,8 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Stack;
 
 
@@ -11,34 +10,28 @@ import java.util.Stack;
  */
 public class ImageImpl implements Image {
 
-  private final ImageStateImpl state;
-  private final String logMessage;
-  private final Stack<Map<ImageStateImpl, String>> revisions;
-
+  private final Stack<ImageState> revisions;
 
   public ImageImpl(ImageStateImpl state) {
     if (state == null) {
       throw new IllegalArgumentException("ImageStateImpl cannot be null");
     }
-    this.state = state;
     this.revisions = new Stack<>();
-    this.save("Original image");
-  }
-
-  private void save(String logMessage) {
-    Map<ImageStateImpl, String> revision = new HashMap<>();
-    revision.put(this.state, logMessage);
-    this.revisions.push(revision);
+    this.revisions.push(new ImageStateImpl(pixels, "Initial image"));
   }
 
   /**
-   * Gets the pixels of the Image.
+   * Returns the most recent state of the image.
    *
-   * @return a copy of the pixels.
+   * @return the current state of the image
    */
+  private ImageState state() {
+    return this.revisions.peek();
+  }
+
   @Override
   public ArrayList<Pixel> getPixels() {
-    return new ArrayList<Pixel>(this.state.getPixels());
+    return new ArrayList<Pixel>(this.state().getPixels());
   }
 
 }

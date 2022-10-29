@@ -29,6 +29,18 @@ public class Pixel {
   }
 
   /**
+   * Constructs a new pixel with the given position and color as
+   * @param x
+   * @param y
+   * @param r
+   * @param g
+   * @param b
+   */
+  public Pixel(int x, int y, int r, int g, int b) {
+    this(new Point(x, y), new Color(r, g, b));
+  }
+
+  /**
    * Gets the position of the pixel as a {@link Point}.
    *
    * @return the position of the pixel.
