@@ -11,14 +11,6 @@ public interface Image {
    */
   ArrayList<Pixel> getPixels();
 
-  /**
-   * Updates the image with the given pixels and log message.
-   *
-   * @param pixels     the pixels to update the image with
-   * @param logMessage a message with changes made to the image
-   */
-  void update(List<Pixel> pixels, String logMessage);
-
   // TODO: Ben work on visualize
   void visualize(VisualizeType type);
 
