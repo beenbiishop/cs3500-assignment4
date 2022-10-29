@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 
-
 /**
  * This class contains utility methods to read a PPM image from file and simply print its contents.
  * Feel free to change this method as required.
@@ -66,7 +65,9 @@ public class ImageUtil {
     if (args.length > 0) {
       filename = args[0];
     } else {
-      filename = "C:/Users/sm1se/Documents/OOD/Image Processing (Part 1)/Koala.ppm" ;
+//      filename = "C:/Users/sm1se/Documents/OOD/Image Processing (Part 1)/Koala.ppm" ;
+      filename = "/Users/benbishop/Documents/CS 3500/assignments/Assignment4/res/provided/Koala.ppm";
+
     }
 
     ImageUtil.readPPM(filename);

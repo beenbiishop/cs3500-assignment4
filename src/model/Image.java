@@ -2,11 +2,27 @@ package model;
 
 public interface Image {
 
-  public void visualizeImage();
+  /**
+   * Returns a map containing the pixels of this image.
+   *
+   * <p>A pixel contains two values: it's position in the image, and it's color in RGB format.</p>
+   *
+   * @return a copy of the pixels.
+   */
+  ArrayList<Pixel> getPixels();
 
-  public void horizontalFlip();
-  public void verticalFlip();
+  /**
+   * Gets the width of the Image.
+   *
+   * @return an integer representing the width.
+   */
+  int getWidth();
 
-  public void shadeImage(); //brightens or darkens the image accordingly
-  public void greyscaleImage(); //converts the image to greyscale
+  /**
+   * Gets the height of the Image.
+   *
+   * @return an integer representing the height.
+   */
+  int getHeight();
+
 }
