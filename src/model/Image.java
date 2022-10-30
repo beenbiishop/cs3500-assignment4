@@ -1,5 +1,11 @@
 package model;
 
+import java.util.ArrayList;
+
+
+/**
+ * Represents an image and it's pixels.
+ */
 public interface Image {
 
   /**
