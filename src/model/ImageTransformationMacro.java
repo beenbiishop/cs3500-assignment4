@@ -2,6 +2,13 @@ package model;
 
 import java.awt.Color;
 
+/**
+ * Implements the {@link ImageTransformation} interface as an abstract class.
+ *
+ * <p>To implement a new image transformation, extend this class and implement the
+ * {@link #changePixel(Pixel)} (Pixel)} method, and this parent class will apply that
+ * transformation to each pixel of the given image.</p>
+ */
 public abstract class ImageTransformationMacro implements ImageTransformation {
 
   private final Image image;
@@ -21,7 +28,7 @@ public abstract class ImageTransformationMacro implements ImageTransformation {
 
   @Override
   public void apply(Image image) {
-    Color[][] newPixels = this.changePixels();
+    Pixel[][] newPixels = this.changePixels();
     String logMessage = this.changeMessage();
     this.image.update(newPixels, logMessage);
   }
@@ -32,13 +39,13 @@ public abstract class ImageTransformationMacro implements ImageTransformation {
    *
    * @return an array of colors representing the new pixels of the image
    */
-  private Color[][] changePixels() {
-    Color[][] pixels = this.image.getPixels();
+  private Pixel[][] changePixels() {
+    Pixel[][] pixels = this.image.getPixels();
     int width = this.image.getWidth();
     int height = this.image.getHeight();
-    for (int i = 0; i < pixels.length; i++) {
-      for (int j = 0; j < pixels[i].length; j++) {
-        pixels[i][j] = this.changePixel(pixels[i][j], width, height);
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
+        pixels[i][j] = this.changePixel(pixels[i][j]);
       }
     }
     return pixels;
@@ -49,11 +56,9 @@ public abstract class ImageTransformationMacro implements ImageTransformation {
    * subclass.
    *
    * @param pixel  the pixel to change
-   * @param width  the width of the image
-   * @param height the height of the image
    * @return the new color of the pixel
    */
-  protected abstract Color changePixel(Color pixel, int width, int height);
+  protected abstract Pixel changePixel(Pixel pixel);
 
   /**
    * Returns a message for this {@code ImageTransformationMacro}'s image documenting the changes

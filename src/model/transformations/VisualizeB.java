@@ -3,6 +3,7 @@ package model.transformations;
 import java.awt.Color;
 import model.Image;
 import model.ImageTransformationMacro;
+import model.Pixel;
 
 /**
  * Represents a macro that transforms an {@link Image} to visualize its blue component.
@@ -24,10 +25,13 @@ public class VisualizeB extends ImageTransformationMacro {
     super(image);
   }
 
+
   @Override
-  protected Color changePixel(Color pixel, int width, int height) {
+  protected Pixel changePixel(Pixel pixel) {
+    int posx = pixel.getPosition().x;
+    int posy = pixel.getPosition().y;
     int blue = pixel.getBlue();
-    return new Color(blue, blue, blue);
+    return new Pixel(posx, posy, blue, blue, blue);
   }
 
   @Override

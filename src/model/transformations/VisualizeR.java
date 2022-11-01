@@ -3,6 +3,7 @@ package model.transformations;
 import java.awt.Color;
 import model.Image;
 import model.ImageTransformationMacro;
+import model.Pixel;
 
 /**
  * Represents a macro that transforms an {@link Image} to visualize its red component.
@@ -25,9 +26,11 @@ public class VisualizeR extends ImageTransformationMacro {
   }
 
   @Override
-  protected Color changePixel(Color pixel, int width, int height) {
+  protected Pixel changePixel(Pixel pixel) {
+    int posx = pixel.getPosition().x;
+    int posy = pixel.getPosition().y;
     int red = pixel.getRed();
-    return new Color(red, red, red);
+    return new Pixel(posx, posy, red, red, red);
   }
 
   @Override

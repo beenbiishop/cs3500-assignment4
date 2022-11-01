@@ -1,6 +1,6 @@
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 
 
 /**
@@ -65,9 +65,7 @@ public class ImageUtil {
     if (args.length > 0) {
       filename = args[0];
     } else {
-//      filename = "C:/Users/sm1se/Documents/OOD/Image Processing (Part 1)/Koala.ppm" ;
-      filename = "/Users/benbishop/Documents/CS 3500/assignments/Assignment4/res/provided/Koala.ppm";
-
+      filename = "res/ColorSquares.ppm";
     }
 
     ImageUtil.readPPM(filename);

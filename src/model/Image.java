@@ -29,7 +29,7 @@ public interface Image {
    *
    * @return a copy of the pixels of the image
    */
-  Color[][] getPixels();
+  Pixel[][] getPixels();
 
   /**
    * Updates the image with the given pixels.
@@ -38,7 +38,7 @@ public interface Image {
    * @param logMessage the log message documenting the changes made to the image
    * @throws IllegalArgumentException if there is not at least one pixel in the given array
    */
-  void update(Color[][] pixels, String logMessage) throws IllegalArgumentException;
+  void update(Pixel[][] pixels, String logMessage) throws IllegalArgumentException;
 
   /**
    * Transforms the image using the given {@link ImageTransformation} macro.

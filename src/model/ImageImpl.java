@@ -17,7 +17,7 @@ public class ImageImpl implements Image {
    * @param pixels the pixels of the image
    * @throws IllegalArgumentException if there is not at least one pixel in the given array
    */
-  public ImageImpl(Color[][] pixels) throws IllegalArgumentException {
+  public ImageImpl(Pixel[][] pixels) throws IllegalArgumentException {
     if (pixels == null || pixels.length == 0 || pixels[0].length == 0) {
       throw new IllegalArgumentException("Image must start with at least one pixel");
     }
@@ -36,13 +36,13 @@ public class ImageImpl implements Image {
   }
 
   @Override
-  public Color[][] getPixels() {
+  public Pixel[][] getPixels() {
     return this.getCurrentState().getPixels();
   }
 
 
   @Override
-  public void update(Color[][] pixels, String logMessage) throws IllegalArgumentException {
+  public void update(Pixel[][] pixels, String logMessage) throws IllegalArgumentException {
     if (pixels == null || pixels.length == 0 || pixels[0].length == 0) {
       throw new IllegalArgumentException("Image must have at least one pixel");
     }
@@ -80,7 +80,7 @@ public class ImageImpl implements Image {
 
     private final int width;
     private final int height;
-    private final Color[][] pixels;
+    private final Pixel[][] pixels;
     private final String logMessage;
 
     /**
@@ -92,7 +92,7 @@ public class ImageImpl implements Image {
      * @throws IllegalArgumentException if there is not at least one pixel in the given array, or if
      *                                  the log message is null or empty
      */
-    public ImageState(Color[][] pixels, String logMessage) throws IllegalArgumentException {
+    public ImageState(Pixel[][] pixels, String logMessage) throws IllegalArgumentException {
       if (pixels == null || pixels.length == 0 || pixels[0].length == 0) {
         throw new IllegalArgumentException("The pixels array must contain at least one pixel");
       }
@@ -126,15 +126,12 @@ public class ImageImpl implements Image {
     /**
      * Gets a copy of this image state's pixels.
      *
-     * @return the pixels of the image state as a 2D array of {@link Color}s
+     * @return the pixels of the image state as a 2D array of {@link Color}s in the format
+     * {@code Color[width][height]}
      */
-    public Color[][] getPixels() {
-      Color[][] ret = new Color[this.width][this.height];
-      for (int i = 0; i < this.width; i++) {
-        for (int j = 0; j < this.height; j++) {
-          ret[i][j] = this.pixels[i][j];
-        }
-      }
+    public Pixel[][] getPixels() {
+      Pixel[][] ret;
+      ret = this.pixels.clone();
       return ret;
     }
 
