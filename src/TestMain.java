@@ -8,7 +8,6 @@ import java.util.Scanner;
 import model.Image;
 import model.Image.ColorChannel;
 import model.ImageImpl;
-import model.Pixel;
 
 /**
  * A class to test the Image interface.

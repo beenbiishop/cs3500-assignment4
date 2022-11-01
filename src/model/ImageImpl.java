@@ -1,8 +1,6 @@
 package model;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 
@@ -14,103 +12,140 @@ public class ImageImpl implements Image {
   private final Stack<ImageState> revisions;
 
   /**
-   * Constructs a new image with the given list of pixels.
+   * Constructs a new image with the given pixels.
    *
    * @param pixels the pixels of the image
+   * @throws IllegalArgumentException if there is not at least one pixel in the given array
    */
-  public ImageImpl(List<Pixel> pixels) {
-    // TODO: We might need to check if there is a pixel in every slot when constructing the image
-    if (pixels == null || pixels.isEmpty()) {
-      throw new IllegalArgumentException("Pixels cannot be null");
+  public ImageImpl(Color[][] pixels) throws IllegalArgumentException {
+    if (pixels == null || pixels.length == 0 || pixels[0].length == 0) {
+      throw new IllegalArgumentException("Image must start with at least one pixel");
     }
     this.revisions = new Stack<>();
-    this.revisions.push(new ImageStateImpl(pixels, "Initial image"));
+    this.update(pixels, "Initial image");
   }
 
   @Override
-  public ArrayList<Pixel> getPixels() {
-    return new ArrayList<Pixel>(this.state().getPixels());
+  public int getWidth() {
+    return this.getCurrentState().getWidth();
   }
 
   @Override
-  public void visualize(ColorChannel channel) {
-    List<Pixel> current = this.state().getPixels();
-    List<Pixel> pixels = new ArrayList<Pixel>();
+  public int getHeight() {
+    return this.getCurrentState().getHeight();
+  }
 
-    for (Pixel p : current) {
-      Color color = p.getColor();
-      int red = color.getRed();
-      int blue = color.getGreen();
-      int green = color.getBlue();
-      switch (channel) {
-        case RED:
-          blue = red;
-          green = red;
-          break;
-        case GREEN:
-          red = green;
-          blue = green;
-          break;
-        case BLUE:
-          red = blue;
-          green = blue;
-          break;
-        case VALUE:
-          int max = Math.max(red, Math.max(green, blue));
-          red = max;
-          green = max;
-          blue = max;
-          break;
-        case INTENSITY:
-          int avg = (red + green + blue) / 3;
-          red = avg;
-          green = avg;
-          blue = avg;
-          break;
-        case LUMA:
-          int lum = (int) (0.212 * red + 0.7152 * green + 0.0722 * blue);
-          red = lum;
-          green = lum;
-          blue = lum;
-          break;
-        default:
-          throw new IllegalArgumentException("Invalid ColorChannel");
-      }
-      pixels.add(new Pixel(p.getPosition(), new Color(red, green, blue)));
+  @Override
+  public Color[][] getPixels() {
+    return this.getCurrentState().getPixels();
+  }
+
+
+  @Override
+  public void update(Color[][] pixels, String logMessage) throws IllegalArgumentException {
+    if (pixels == null || pixels.length == 0 || pixels[0].length == 0) {
+      throw new IllegalArgumentException("Image must have at least one pixel");
     }
-    this.addRevision(pixels, "Visualize " + channel.toString().toLowerCase());
+    ImageState newState = new ImageState(pixels, logMessage);
+    this.revisions.push(newState);
   }
 
   @Override
-  public void shade(int val) {
-    // TODO: Implement shade method
-  }
-
-  @Override
-  public void flip(FlipType type) {
-    // TODO: Implement flip method
-    if (type == FlipType.HORIZONTAL) {
-
+  public void transform(ImageTransformation transformation) throws IllegalArgumentException {
+    if (transformation == null) {
+      throw new IllegalArgumentException("Transformation cannot be null");
     }
+    transformation.apply(this);
   }
 
   /**
-   * Returns the most recent state of the image.
+   * Gets the {@link ImageState} of this image's current state.
    *
    * @return the current state of the image
    */
-  private ImageState state() {
+  private ImageState getCurrentState() {
     return this.revisions.peek();
   }
 
   /**
-   * Adds a new {@link ImageState} to the stack of revisions.
+   * Represents a state of this image.
    *
-   * @param pixels     the pixels of the new state
-   * @param logMessage the log message of the changes
+   * <p>Each state of the image is represented by a 2D array of {@link Color}s. By storing pixels
+   * as {@code ImageState}s rather than a stack of pixels, this ensures that changes made to an
+   * image are never permanently overridden when transformations are made. Though not instructed to
+   * support undoing/redoing transformations in this assignment, this allows for implementing this
+   * in the future.</p>
    */
-  private void addRevision(List<Pixel> pixels, String logMessage) {
-    this.revisions.push(new ImageStateImpl(pixels, logMessage));
+  private class ImageState {
+
+    private final int width;
+    private final int height;
+    private final Color[][] pixels;
+    private final String logMessage;
+
+    /**
+     * Constructs a new {@link ImageState} with the given pixels and log message.
+     *
+     * @param pixels     a 2D array of pixels for this image state
+     * @param logMessage a log message that represents the transformation applied when this state
+     *                   was created
+     * @throws IllegalArgumentException if there is not at least one pixel in the given array, or if
+     *                                  the log message is null or empty
+     */
+    public ImageState(Color[][] pixels, String logMessage) throws IllegalArgumentException {
+      if (pixels == null || pixels.length == 0 || pixels[0].length == 0) {
+        throw new IllegalArgumentException("The pixels array must contain at least one pixel");
+      }
+      if (logMessage == null || logMessage.length() == 0) {
+        throw new IllegalArgumentException("The log message cannot be null or empty");
+      }
+      this.width = pixels.length;
+      this.height = pixels[0].length;
+      this.pixels = pixels;
+      this.logMessage = logMessage;
+    }
+
+    /**
+     * Gets the width of this image state.
+     *
+     * @return the width of the image state as an integer
+     */
+    public int getWidth() {
+      return this.width;
+    }
+
+    /**
+     * Gets the height of this image state.
+     *
+     * @return the height of the image state as an integer
+     */
+    public int getHeight() {
+      return this.height;
+    }
+
+    /**
+     * Gets a copy of this image state's pixels.
+     *
+     * @return the pixels of the image state as a 2D array of {@link Color}s
+     */
+    public Color[][] getPixels() {
+      Color[][] ret = new Color[this.width][this.height];
+      for (int i = 0; i < this.width; i++) {
+        for (int j = 0; j < this.height; j++) {
+          ret[i][j] = this.pixels[i][j];
+        }
+      }
+      return ret;
+    }
+
+    /**
+     * Gets the log message of changes made to create this image state.
+     *
+     * @return the log message as a string
+     */
+    public String getLogMessage() {
+      return this.logMessage;
+    }
   }
 
 }

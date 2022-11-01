@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.awt.Color;
 
 
 /**
@@ -9,39 +9,43 @@ import java.util.ArrayList;
 public interface Image {
 
   /**
-   * Returns a map containing the pixels of this image.
+   * Gets the width of the current state of the image.
    *
-   * <p>A pixel contains two values: it's position in the image, and it's color in RGB format.</p>
-   *
-   * @return a copy of the pixels.
+   * @return the width of the image as an integer
    */
-  ArrayList<Pixel> getPixels();
+  int getWidth();
 
   /**
-   * Transforms an image to visualize a given color channel.
+   * Gets the height of the current state of the image.
    *
-   * <p>To visualize a color channel in an image, </p>
-   *
-   * @param channel the {@link ColorChannel} to visualize in the image
+   * @return the height of the image as an integer
    */
-  void visualize(ColorChannel channel);
-
-  // TODO: Smita work on flip/shade
-  void flip(FlipType type);
-
-  void shade(int val);
+  int getHeight();
 
   /**
-   * Represents available color channels to visualize in an image.
+   * Returns a 2D array of pixels for the image in its current state.
+   *
+   * <p>The pixels of an image are stored as a 2D array of {@link Color}s.</p>
+   *
+   * @return a copy of the pixels of the image
    */
-  enum ColorChannel {
-    RED, GREEN, BLUE, VALUE, INTENSITY, LUMA
-  }
+  Color[][] getPixels();
 
   /**
-   * Represents available axis to flip an image.
+   * Updates the image with the given pixels.
+   *
+   * @param pixels     the 2D array pixels of the updated image
+   * @param logMessage the log message documenting the changes made to the image
+   * @throws IllegalArgumentException if there is not at least one pixel in the given array
    */
-  enum FlipType {
-    HORIZONTAL, VERTICAL
-  }
+  void update(Color[][] pixels, String logMessage) throws IllegalArgumentException;
+
+  /**
+   * Transforms the image using the given {@link ImageTransformation} macro.
+   *
+   * @param transformation the transformation to apply to the image
+   * @throws IllegalArgumentException if the transformation is null
+   */
+  void transform(ImageTransformation transformation) throws IllegalArgumentException;
+
 }
