@@ -1,4 +1,4 @@
 package controller;
 
-public class ImageProcessorImpl {
+public class ImageProcessorImpl implements ImageProcessor {
 }
