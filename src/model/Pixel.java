@@ -1,101 +1,78 @@
 package model;
 
-import java.awt.Color;
-import java.awt.Point;
-
 /**
- * Represents a pixel in an image.
+ * Represents a pixel in an {@link Image}.
  */
 public class Pixel {
 
-  private final Point position;
-  private final Color color;
-
-  private int red;
-
-  private int green;
-  private int blue;
-
+  private final int red;
+  private final int green;
+  private final int blue;
+  private final int maxValue;
 
   /**
-   * Constructs a new pixel with the given position and color.
+   * Construct a pixel with the given red, blue, and green values, as well as the maximum value of a
+   * color in the pixel's image.
    *
-   * @param position the position of the pixel.
-   * @param color    the color of the pixel.
+   * @param red      the red value of the pixel
+   * @param green    the green value of the pixel
+   * @param blue     the blue value of the pixel
+   * @param maxValue the maximum value of all colors in the pixel
    */
-  public Pixel(Point position, Color color) {
-    if (position == null) {
-      throw new IllegalArgumentException("Position cannot be null");
+  public Pixel(int red, int green, int blue, int maxValue) {
+    if (maxValue < 0) {
+      throw new IllegalArgumentException("Max value cannot be negative");
     }
-    if (color == null) {
-      throw new IllegalArgumentException("Color cannot be null");
+    if (red < 0 || red > maxValue) {
+      throw new IllegalArgumentException("Red value must be between 0 and " + maxValue);
     }
-    this.position = position;
-    this.color = color;
-    this.red = color.getRed();
-    this.green = color.getGreen();
-    this.blue = color.getBlue();
+    if (green < 0 || green > maxValue) {
+      throw new IllegalArgumentException("Green value must be between 0 and " + maxValue);
+    }
+    if (blue < 0 || blue > maxValue) {
+      throw new IllegalArgumentException("Blue value must be between 0 and " + maxValue);
+    }
+    this.red = red;
+    this.green = green;
+    this.blue = blue;
+    this.maxValue = maxValue;
   }
 
-  /**
-   * Constructs a new pixel with the given position and color as
-   * @param x
-   * @param y
-   * @param r
-   * @param g
-   * @param b
-   */
-  public Pixel(int x, int y, int r, int g, int b) {
-    this(new Point(x, y), new Color(r, g, b));
-    this.red = r;
-    this.green = g;
-    this.blue = b;
-  }
 
   /**
-   * Gets the position of the pixel as a {@link Point}.
+   * Gets the red value of the pixel.
    *
-   * @return the position of the pixel.
-   */
-  public Point getPosition() {
-    return this.position;
-  }
-
-  /**
-   * Gets the color of the pixel as a {@link Color}.
-   *
-   * @return the color of the pixel.
-   */
-  public Color getColor() {
-    return this.color;
-  }
-
-  /**
-   * Gets the color of the pixel as a {@link Color}.
-   *
-   * @return the color of the pixel.
+   * @return the pixel's red value as an integer
    */
   public int getRed() {
     return this.red;
   }
 
   /**
-   * Gets the color of the pixel as a {@link Color}.
+   * Gets the green value of the pixel.
    *
-   * @return the color of the pixel.
+   * @return the pixel's green value as an integer
    */
   public int getGreen() {
     return this.green;
   }
 
   /**
-   * Gets the color of the pixel as a {@link Color}.
+   * Gets the blue value of the pixel.
    *
-   * @return the color of the pixel.
+   * @return the pixel's blue value as an integer
    */
   public int getBlue() {
     return this.blue;
   }
 
-  // TODO: Override equals and hashcode
+  /**
+   * Gets the maximum value of a pixel's colors.
+   *
+   * @return the pixel's maximum color value as an integer
+   */
+  public int getMaxValue() {
+    return this.maxValue;
+  }
+
 }
