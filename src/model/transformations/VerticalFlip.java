@@ -1,11 +1,11 @@
 package model.transformations;
 
-import java.awt.Point;
+import java.awt.*;
 
 import model.Image;
 import model.Pixel;
 
-public class FlipX extends Flip {
+public class VerticalFlip extends Flip {
 
   private Image image;
 
@@ -15,7 +15,7 @@ public class FlipX extends Flip {
    * @param image the image to apply the transformation to
    * @throws IllegalArgumentException if the image is null
    */
-  public FlipX(Image image) throws IllegalArgumentException {
+  public VerticalFlip(Image image) throws IllegalArgumentException {
     super(image);
     this.image = image;
   }
@@ -23,15 +23,15 @@ public class FlipX extends Flip {
   @Override
   protected Pixel flipPixel(Pixel pixel) {
     Point position = pixel.getPosition();
-    int x = this.width - position.x - 1;
-    int y = position.y;
+    int x = position.x;
+    int y = this.height - position.y - 1;
     Point newPosition = new Point(x, y);
     return new Pixel(newPosition, pixel.getColor());
   }
 
   @Override
   protected void updateImage(Pixel[][] pixels) {
-    this.image.update(pixels, "Flip horizontally");
+    this.image.update(pixels, "Flip vertically");
   }
 
 }

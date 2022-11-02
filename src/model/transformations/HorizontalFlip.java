@@ -1,12 +1,11 @@
 package model.transformations;
 
-import java.awt.*;
-import java.util.ArrayList;
+import java.awt.Point;
 
 import model.Image;
 import model.Pixel;
 
-public class FlipY extends Flip {
+public class HorizontalFlip extends Flip {
 
   private Image image;
 
@@ -16,7 +15,7 @@ public class FlipY extends Flip {
    * @param image the image to apply the transformation to
    * @throws IllegalArgumentException if the image is null
    */
-  public FlipY(Image image) throws IllegalArgumentException {
+  public HorizontalFlip(Image image) throws IllegalArgumentException {
     super(image);
     this.image = image;
   }
@@ -24,8 +23,8 @@ public class FlipY extends Flip {
   @Override
   protected Pixel flipPixel(Pixel pixel) {
     Point position = pixel.getPosition();
-    int x = position.x;
-    int y = this.height - position.y - 1;
+    int x = this.width - position.x - 1;
+    int y = position.y;
     Point newPosition = new Point(x, y);
     return new Pixel(newPosition, pixel.getColor());
   }

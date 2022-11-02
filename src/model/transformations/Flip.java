@@ -33,7 +33,7 @@ public abstract class Flip implements ImageTransformation {
   @Override
   public void apply(Image image) {
     Pixel[][] oldPixels = image.getPixels();
-    Pixel[][] newPixels = new Pixel[this.image.getWidth()][this.image.getHeight()];
+    Pixel[][] newPixels = new Pixel[this.width][this.height];
     for (Pixel[] pixels : oldPixels) {
       for (Pixel pixel : pixels) {
         Pixel flipped = this.flipPixel(pixel);
