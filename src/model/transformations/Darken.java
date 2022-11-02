@@ -8,6 +8,17 @@ public class Darken extends Shade {
   private Image image;
 
   /**
+   * Constructs a shade (darkens the image) transformation.
+   *
+   * @param image  the image to apply the transformation to
+   * @param posInt
+   * @throws IllegalArgumentException if the image is null
+   */
+  public Darken(Image image, int posInt) throws IllegalArgumentException {
+    super(image, posInt);
+  }
+
+  /**
    * Darkens the pixel of the image.
    *
    * @param pixel the pixel to be modified.

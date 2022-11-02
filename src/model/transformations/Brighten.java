@@ -42,6 +42,7 @@ public class Brighten extends Shade {
    */
   @Override
   protected void updateImage(Pixel[][] pixels) {
-    this.image.update(pixels, "Image brightened.");
+    this.image.update(pixels,
+            "Image brightened.");
   }
 }

@@ -35,7 +35,7 @@ public abstract class Shade implements ImageTransformation {
    * @param posInt the value that the image is shaded
    */
   @Override
-  public void apply(Image image, int posInt) {
+  public void apply(Image image) {
     Pixel[][] oldPixels = image.getPixels();
     Pixel[][] newPixels = new Pixel[this.width][this.height];
     for (Pixel[] pixels : oldPixels) {

@@ -9,5 +9,4 @@ public interface ImageTransformation {
    * Applies this transformation to the given image.
    */
   void apply(Image image);
-
 }
