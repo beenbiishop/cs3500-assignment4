@@ -45,7 +45,7 @@ public abstract class ImageTransformationMacro implements ImageTransformation {
     int height = this.image.getHeight();
     for (int w = 0; w < width; w++) {
       for (int h = 0; h < height; h++) {
-        pixels[w][h] = this.changePixel(pixels[w][h], width, height);
+        pixels[w][h] = this.changePixel(pixels[w][h], w, h);
       }
     }
     return pixels;
@@ -55,12 +55,12 @@ public abstract class ImageTransformationMacro implements ImageTransformation {
    * Changes the given pixel to a new {@link Color}, based on the specifications of the macro's
    * subclass.
    *
-   * @param pixel  the pixel to change
-   * @param width  the width of the image
-   * @param height the height of the image
-   * @return the new color of the pixel
+   * @param pixel     the pixel to change
+   * @param xPosition the x position of the pixel
+   * @param yPosition the y position of the pixel
+   * @return the new pixel at the given position
    */
-  protected abstract RGBPixel changePixel(RGBPixel pixel, int width, int height);
+  protected abstract RGBPixel changePixel(RGBPixel pixel, int xPosition, int yPosition);
 
   /**
    * Returns a message for this {@code ImageTransformationMacro}'s image documenting the changes

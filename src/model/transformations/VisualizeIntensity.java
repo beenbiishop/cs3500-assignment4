@@ -26,11 +26,9 @@ public class VisualizeIntensity extends ImageTransformationMacro {
   }
 
   @Override
-  protected RGBPixel changePixel(RGBPixel pixel) {
-    int posx = pixel.getPosition().x;
-    int posy = pixel.getPosition().y;
+  protected RGBPixel changePixel(RGBPixel pixel, int xPosition, int yPosition) {
     int avg = (pixel.getRed() + pixel.getBlue() + pixel.getGreen()) / 3;
-    return new RGBPixel(posx, posy, avg, avg, avg);
+    return new RGBPixel(avg, avg, avg, pixel.getMaxValue());
   }
 
   @Override

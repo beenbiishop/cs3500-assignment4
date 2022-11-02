@@ -25,12 +25,10 @@ public class VisualizeLuma extends ImageTransformationMacro {
   }
 
   @Override
-  protected RGBPixel changePixel(RGBPixel pixel) {
-    int posx = pixel.getPosition().x;
-    int posy = pixel.getPosition().y;
+  protected RGBPixel changePixel(RGBPixel pixel, int xPosition, int yPosition) {
     int luma = (int) (0.2126 * pixel.getRed() + 0.7152 * pixel.getGreen()
         + 0.0722 * pixel.getBlue());
-    return new RGBPixel(posx, posy, luma, luma, luma);
+    return new RGBPixel(luma, luma, luma, pixel.getMaxValue());
   }
 
   @Override

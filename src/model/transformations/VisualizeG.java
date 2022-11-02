@@ -25,11 +25,9 @@ public class VisualizeG extends ImageTransformationMacro {
   }
 
   @Override
-  protected RGBPixel changePixel(RGBPixel pixel) {
-    int posx = pixel.getPosition().x;
-    int posy = pixel.getPosition().y;
+  protected RGBPixel changePixel(RGBPixel pixel, int xPosition, int yPosition) {
     int green = pixel.getGreen();
-    return new RGBPixel(posx, posy, green, green, green);
+    return new RGBPixel(green, green, green, pixel.getMaxValue());
   }
 
   @Override
