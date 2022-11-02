@@ -1,9 +1,8 @@
 package model.transformations;
 
-import java.awt.Color;
 import model.Image;
 import model.ImageTransformationMacro;
-import model.Pixel;
+import model.RGBPixel;
 
 /**
  * Represents a macro that transforms an {@link Image} to visualize its green component.
@@ -26,11 +25,11 @@ public class VisualizeG extends ImageTransformationMacro {
   }
 
   @Override
-  protected Pixel changePixel(Pixel pixel) {
+  protected RGBPixel changePixel(RGBPixel pixel) {
     int posx = pixel.getPosition().x;
     int posy = pixel.getPosition().y;
     int green = pixel.getGreen();
-    return new Pixel(posx, posy, green, green, green);
+    return new RGBPixel(posx, posy, green, green, green);
   }
 
   @Override

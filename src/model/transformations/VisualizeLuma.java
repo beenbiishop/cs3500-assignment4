@@ -1,9 +1,8 @@
 package model.transformations;
 
-import java.awt.Color;
 import model.Image;
 import model.ImageTransformationMacro;
-import model.Pixel;
+import model.RGBPixel;
 
 /**
  * Represents a macro that transforms an {@link Image} to visualize its luma component.
@@ -26,12 +25,12 @@ public class VisualizeLuma extends ImageTransformationMacro {
   }
 
   @Override
-  protected Pixel changePixel(Pixel pixel) {
+  protected RGBPixel changePixel(RGBPixel pixel) {
     int posx = pixel.getPosition().x;
     int posy = pixel.getPosition().y;
     int luma = (int) (0.2126 * pixel.getRed() + 0.7152 * pixel.getGreen()
         + 0.0722 * pixel.getBlue());
-    return new Pixel(posx, posy, luma, luma, luma);
+    return new RGBPixel(posx, posy, luma, luma, luma);
   }
 
   @Override

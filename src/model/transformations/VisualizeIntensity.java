@@ -1,9 +1,8 @@
 package model.transformations;
 
-import java.awt.Color;
 import model.Image;
 import model.ImageTransformationMacro;
-import model.Pixel;
+import model.RGBPixel;
 
 /**
  * Represents a macro that transforms an {@link Image} to visualize its intensity component.
@@ -27,11 +26,11 @@ public class VisualizeIntensity extends ImageTransformationMacro {
   }
 
   @Override
-  protected Pixel changePixel(Pixel pixel) {
+  protected RGBPixel changePixel(RGBPixel pixel) {
     int posx = pixel.getPosition().x;
     int posy = pixel.getPosition().y;
     int avg = (pixel.getRed() + pixel.getBlue() + pixel.getGreen()) / 3;
-    return new Pixel(posx, posy, avg, avg, avg);
+    return new RGBPixel(posx, posy, avg, avg, avg);
   }
 
   @Override

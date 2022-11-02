@@ -1,7 +1,7 @@
 package model.transformations;
 
 import model.Image;
-import model.Pixel;
+import model.RGBPixel;
 
 public class Brighten extends Shade {
 
@@ -20,10 +20,11 @@ public class Brighten extends Shade {
 
   /**
    * Brightens the pixel of the image.
-   * @param pixel the pixel to be modified.
+   *
+   * @param pixel  the pixel to be modified.
    * @param posInt the value that the pixel gets brightened.
    */
-  protected Pixel shadePixel(Pixel pixel, int posInt) {
+  protected RGBPixel shadePixel(RGBPixel pixel, int posInt) {
     int red = pixel.getRed();
     int green = pixel.getGreen();
     int blue = pixel.getBlue();
@@ -32,7 +33,7 @@ public class Brighten extends Shade {
     green += posInt;
     blue += posInt;
 
-    return new Pixel(pixel.getPosition().x, pixel.getPosition().y, red, green, blue);
+    return new RGBPixel(pixel.getPosition().x, pixel.getPosition().y, red, green, blue);
   }
 
   /**
@@ -41,8 +42,7 @@ public class Brighten extends Shade {
    * @param pixels the new pixels to add to the image stack.
    */
   @Override
-  protected void updateImage(Pixel[][] pixels) {
-    this.image.update(pixels,
-            "Image brightened.");
+  protected void updateImage(RGBPixel[][] pixels) {
+    this.image.update(pixels, "Image brightened.");
   }
 }

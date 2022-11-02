@@ -1,9 +1,8 @@
 package model.transformations;
 
-import java.awt.Color;
 import model.Image;
 import model.ImageTransformationMacro;
-import model.Pixel;
+import model.RGBPixel;
 
 /**
  * Represents a macro that transforms an {@link Image} to visualize its red component.
@@ -26,11 +25,11 @@ public class VisualizeR extends ImageTransformationMacro {
   }
 
   @Override
-  protected Pixel changePixel(Pixel pixel) {
+  protected RGBPixel changePixel(RGBPixel pixel) {
     int posx = pixel.getPosition().x;
     int posy = pixel.getPosition().y;
     int red = pixel.getRed();
-    return new Pixel(posx, posy, red, red, red);
+    return new RGBPixel(posx, posy, red, red, red);
   }
 
   @Override

@@ -1,10 +1,8 @@
 package model.transformations;
 
-import java.awt.Color;
-
 import model.Image;
 import model.ImageTransformation;
-import model.Pixel;
+import model.RGBPixel;
 
 /**
  * Applies a flip transformation to an image.
@@ -32,12 +30,12 @@ public abstract class Flip implements ImageTransformation {
 
   @Override
   public void apply(Image image) {
-    Pixel[][] oldPixels = image.getPixels();
-    Pixel[][] newPixels = new Pixel[this.width][this.height];
-    for (Pixel[] pixels : oldPixels) {
-      for (Pixel pixel : pixels) {
-        Pixel flipped = this.flipPixel(pixel);
-        newPixels[pixel.getPosition().x][pixel.getPosition().y]= flipped;
+    RGBPixel[][] oldPixels = image.getPixels();
+    RGBPixel[][] newPixels = new RGBPixel[this.width][this.height];
+    for (RGBPixel[] pixels : oldPixels) {
+      for (RGBPixel pixel : pixels) {
+        RGBPixel flipped = this.flipPixel(pixel);
+        newPixels[pixel.getPosition().x][pixel.getPosition().y] = flipped;
       }
     }
     this.updateImage(newPixels);
@@ -46,13 +44,13 @@ public abstract class Flip implements ImageTransformation {
   /**
    * Flips the pixel of the image.
    */
-  protected abstract Pixel flipPixel(Pixel pixel);
+  protected abstract RGBPixel flipPixel(RGBPixel pixel);
 
   /**
    * Updates the image with the given pixels.
    *
    * @param pixels
    */
-  protected abstract void updateImage(Pixel[][] pixels);
+  protected abstract void updateImage(RGBPixel[][] pixels);
 
 }

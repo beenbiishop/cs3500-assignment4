@@ -1,9 +1,8 @@
 package model.transformations;
 
 import java.awt.Point;
-
 import model.Image;
-import model.Pixel;
+import model.RGBPixel;
 
 public class HorizontalFlip extends Flip {
 
@@ -21,16 +20,16 @@ public class HorizontalFlip extends Flip {
   }
 
   @Override
-  protected Pixel flipPixel(Pixel pixel) {
+  protected RGBPixel flipPixel(RGBPixel pixel) {
     Point position = pixel.getPosition();
     int x = this.width - position.x - 1;
     int y = position.y;
     Point newPosition = new Point(x, y);
-    return new Pixel(newPosition, pixel.getColor());
+    return new RGBPixel(newPosition, pixel.getColor());
   }
 
   @Override
-  protected void updateImage(Pixel[][] pixels) {
+  protected void updateImage(RGBPixel[][] pixels) {
     this.image.update(pixels, "Flip horizontally");
   }
 

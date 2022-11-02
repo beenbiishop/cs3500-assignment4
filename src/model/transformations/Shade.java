@@ -2,7 +2,7 @@ package model.transformations;
 
 import model.Image;
 import model.ImageTransformation;
-import model.Pixel;
+import model.RGBPixel;
 
 public abstract class Shade implements ImageTransformation {
 
@@ -31,16 +31,16 @@ public abstract class Shade implements ImageTransformation {
   /**
    * Applies this transformation to the given image.
    *
-   * @param image the image to be transformed
+   * @param image  the image to be transformed
    * @param posInt the value that the image is shaded
    */
   @Override
   public void apply(Image image) {
-    Pixel[][] oldPixels = image.getPixels();
-    Pixel[][] newPixels = new Pixel[this.width][this.height];
-    for (Pixel[] pixels : oldPixels) {
-      for (Pixel pixel : pixels) {
-        Pixel shaded = this.shadePixel(pixel, posInt);
+    RGBPixel[][] oldPixels = image.getPixels();
+    RGBPixel[][] newPixels = new RGBPixel[this.width][this.height];
+    for (RGBPixel[] pixels : oldPixels) {
+      for (RGBPixel pixel : pixels) {
+        RGBPixel shaded = this.shadePixel(pixel, posInt);
         newPixels[pixel.getPosition().x][pixel.getPosition().y] = shaded;
       }
     }
@@ -50,14 +50,14 @@ public abstract class Shade implements ImageTransformation {
   /**
    * Shades the pixel of the image.
    */
-  protected abstract Pixel shadePixel(Pixel pixel, int posInt);
+  protected abstract RGBPixel shadePixel(RGBPixel pixel, int posInt);
 
   /**
    * Updates the image with the given pixels.
    *
    * @param pixels
    */
-  protected abstract void updateImage(Pixel[][] pixels);
+  protected abstract void updateImage(RGBPixel[][] pixels);
 
 }
 

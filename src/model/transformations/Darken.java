@@ -1,7 +1,7 @@
 package model.transformations;
 
 import model.Image;
-import model.Pixel;
+import model.RGBPixel;
 
 public class Darken extends Shade {
 
@@ -21,11 +21,11 @@ public class Darken extends Shade {
   /**
    * Darkens the pixel of the image.
    *
-   * @param pixel the pixel to be modified.
+   * @param pixel  the pixel to be modified.
    * @param posInt the value that the pixel gets darkened.
    */
   @Override
-  protected Pixel shadePixel(Pixel pixel, int posInt) {
+  protected RGBPixel shadePixel(RGBPixel pixel, int posInt) {
     int red = pixel.getRed();
     int green = pixel.getGreen();
     int blue = pixel.getBlue();
@@ -34,7 +34,7 @@ public class Darken extends Shade {
     green -= posInt;
     blue -= posInt;
 
-    return new Pixel(pixel.getPosition().x, pixel.getPosition().y, red, green, blue);
+    return new RGBPixel(pixel.getPosition().x, pixel.getPosition().y, red, green, blue);
   }
 
   /**
@@ -44,7 +44,7 @@ public class Darken extends Shade {
    */
 
   @Override
-  protected void updateImage(Pixel[][] pixels) {
+  protected void updateImage(RGBPixel[][] pixels) {
     this.image.update(pixels, "Image darkened.");
   }
 }

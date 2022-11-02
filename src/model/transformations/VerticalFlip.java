@@ -1,9 +1,8 @@
 package model.transformations;
 
-import java.awt.*;
-
+import java.awt.Point;
 import model.Image;
-import model.Pixel;
+import model.RGBPixel;
 
 public class VerticalFlip extends Flip {
 
@@ -21,16 +20,16 @@ public class VerticalFlip extends Flip {
   }
 
   @Override
-  protected Pixel flipPixel(Pixel pixel) {
+  protected RGBPixel flipPixel(RGBPixel pixel) {
     Point position = pixel.getPosition();
     int x = position.x;
     int y = this.height - position.y - 1;
     Point newPosition = new Point(x, y);
-    return new Pixel(newPosition, pixel.getColor());
+    return new RGBPixel(newPosition, pixel.getColor());
   }
 
   @Override
-  protected void updateImage(Pixel[][] pixels) {
+  protected void updateImage(RGBPixel[][] pixels) {
     this.image.update(pixels, "Flip vertically");
   }
 

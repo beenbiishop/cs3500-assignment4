@@ -14,10 +14,10 @@ public class ImageImpl implements Image {
   /**
    * Constructs a new image with the given pixels.
    *
-   * @param pixels the pixels of the image
+   * @param pixels the pixels of the image as a 2D array {@code Pixel[width][height]}
    * @throws IllegalArgumentException if there is not at least one pixel in the given array
    */
-  public ImageImpl(Pixel[][] pixels) throws IllegalArgumentException {
+  public ImageImpl(RGBPixel[][] pixels) throws IllegalArgumentException {
     if (pixels == null || pixels.length == 0 || pixels[0].length == 0) {
       throw new IllegalArgumentException("Image must start with at least one pixel");
     }
@@ -36,13 +36,13 @@ public class ImageImpl implements Image {
   }
 
   @Override
-  public Pixel[][] getPixels() {
+  public RGBPixel[][] getPixels() {
     return this.getCurrentState().getPixels();
   }
 
 
   @Override
-  public void update(Pixel[][] pixels, String logMessage) throws IllegalArgumentException {
+  public void update(RGBPixel[][] pixels, String logMessage) throws IllegalArgumentException {
     if (pixels == null || pixels.length == 0 || pixels[0].length == 0) {
       throw new IllegalArgumentException("Image must have at least one pixel");
     }
@@ -80,19 +80,19 @@ public class ImageImpl implements Image {
 
     private final int width;
     private final int height;
-    private final Pixel[][] pixels;
+    private final RGBPixel[][] pixels;
     private final String logMessage;
 
     /**
      * Constructs a new {@link ImageState} with the given pixels and log message.
      *
-     * @param pixels     a 2D array of pixels for this image state
+     * @param pixels     the pixels of this image state as a 2D array {@code Pixel[width][height]}
      * @param logMessage a log message that represents the transformation applied when this state
      *                   was created
      * @throws IllegalArgumentException if there is not at least one pixel in the given array, or if
      *                                  the log message is null or empty
      */
-    public ImageState(Pixel[][] pixels, String logMessage) throws IllegalArgumentException {
+    public ImageState(RGBPixel[][] pixels, String logMessage) throws IllegalArgumentException {
       if (pixels == null || pixels.length == 0 || pixels[0].length == 0) {
         throw new IllegalArgumentException("The pixels array must contain at least one pixel");
       }
@@ -129,9 +129,8 @@ public class ImageImpl implements Image {
      * @return the pixels of the image state as a 2D array of {@link Color}s in the format
      * {@code Color[width][height]}
      */
-    public Pixel[][] getPixels() {
-      Pixel[][] ret;
-      ret = this.pixels.clone();
+    public RGBPixel[][] getPixels() {
+      RGBPixel[][] ret = this.pixels.clone();
       return ret;
     }
 

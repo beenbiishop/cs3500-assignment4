@@ -1,8 +1,5 @@
 package model;
 
-import java.awt.Color;
-
-
 /**
  * Represents an image and it's pixels.
  */
@@ -23,22 +20,20 @@ public interface Image {
   int getHeight();
 
   /**
-   * Returns a 2D array of pixels for the image in its current state.
+   * Returns a 2D array of pixels {@code Pixel[width][height]} for the image in its current state.
    *
-   * <p>The pixels of an image are stored as a 2D array of {@link Color}s.</p>
-   *
-   * @return a copy of the pixels of the image
+   * @return a copy of the 2D array of pixels for the image
    */
-  Pixel[][] getPixels();
+  RGBPixel[][] getPixels();
 
   /**
-   * Updates the image with the given pixels.
+   * Updates the image with the given 2D array of pixels.
    *
    * @param pixels     the 2D array pixels of the updated image
    * @param logMessage the log message documenting the changes made to the image
    * @throws IllegalArgumentException if there is not at least one pixel in the given array
    */
-  void update(Pixel[][] pixels, String logMessage) throws IllegalArgumentException;
+  void update(RGBPixel[][] pixels, String logMessage) throws IllegalArgumentException;
 
   /**
    * Transforms the image using the given {@link ImageTransformation} macro.

@@ -3,39 +3,36 @@ package model.transformations;
 import java.awt.Color;
 import model.Image;
 import model.ImageTransformationMacro;
-import model.Pixel;
+import model.RGBPixel;
 
 /**
- * Represents a macro that transforms an {@link Image} to visualize its value component.
+ * Represents a macro that transforms an {@link Image} to visualize its blue component.
  *
- * <p>This transformation transforms the given image's pixels by setting each pixel's red, blue,
- * and green values to the maximum of its three previous values. This inherently transforms the
- * image into a grayscale image, and the brightness (value) of each pixel in the transformed image
- * represents this maximum.</p>
+ * <p>This transformation transforms the given image's pixels by setting each pixel's red and
+ * green values to the same as the blue value. This inherently transforms the image into a grayscale
+ * image, and the brightness (value) of each pixel in the transformed image represents how much blue
+ * was in that pixel in the original image.</p>
  */
-public class VisualizeValue extends ImageTransformationMacro {
+public class VisualizeB extends ImageTransformationMacro {
 
   /**
-   * Constructs a new image transformation macro that visualizes the value component of each pixel.
+   * Constructs a new image transformation macro that visualizes the blue component of each pixel.
    *
    * @param image the image to apply the transformation to
    * @throws IllegalArgumentException if the image is null
    */
-  public VisualizeValue(Image image) throws IllegalArgumentException {
+  public VisualizeB(Image image) throws IllegalArgumentException {
     super(image);
   }
 
-
   @Override
-  protected Pixel changePixel(Pixel pixel) {
-    int posx = pixel.getPosition().x;
-    int posy = pixel.getPosition().y;
-    int max = Math.max(pixel.getRed(), Math.max(pixel.getBlue(), pixel.getGreen()));
-    return new Pixel(posx, posy, max, max, max);
+  protected Color changePixel(RGBPixel pixel, int width, int height) {
+    int blue = pixel.getBlue();
+    return new Color(blue, blue, blue);
   }
 
   @Override
   protected String changeMessage() {
-    return "Visualize value component";
+    return "Visualize blue component";
   }
 }
