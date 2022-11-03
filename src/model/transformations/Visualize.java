@@ -40,8 +40,8 @@ public class Visualize implements ImageTransformation {
             newValue = pixel.getBlue();
             break;
           case Luma:
-            newValue = (int) (0.2126 * pixel.getRed() + 0.7152 * pixel.getGreen()
-                + 0.0722 * pixel.getBlue());
+            newValue = ((int) (0.2126 * pixel.getRed() + 0.7152 * pixel.getGreen()
+                + 0.0722 * pixel.getBlue()));
             break;
           case Value:
             newValue = Math.max(pixel.getRed(), Math.max(pixel.getBlue(), pixel.getGreen()));

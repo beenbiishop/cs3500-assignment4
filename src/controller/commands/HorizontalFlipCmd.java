@@ -7,6 +7,12 @@ import model.StoredImages;
 import model.transformations.HorizontalFlip;
 import view.ImageProcessorView;
 
+/**
+ * Class that represents a command, "Horizontal Flip", that the processor can handle. Implements the
+ * {@code ImageProcessorCmd} interface and execute the command. Flips the image along the horizontal
+ * axis.
+ */
+
 public class HorizontalFlipCmd implements ImageProcessorCmd {
 
   private final ImageProcessorView view;
@@ -14,9 +20,18 @@ public class HorizontalFlipCmd implements ImageProcessorCmd {
   private final String fileName;
   private final String newFileName;
 
-  public HorizontalFlipCmd(ImageProcessorView view, StoredImages store, String fileName) {
-    if (view == null || store == null || fileName == null) {
-      throw new IllegalArgumentException("View, store, and file name cannot be null");
+  /**
+   * Constructs a Horizontal Flip command.
+   *
+   * @param view        the view to display the messages to.
+   * @param store       the store to store images in.
+   * @param fileName    the file name of the image to be transformed.
+   * @param newFileName the file name of the new transformed image.
+   */
+  public HorizontalFlipCmd(ImageProcessorView view, StoredImages store, String fileName,
+      String newFileName) {
+    if (view == null || store == null || fileName == null || newFileName == null) {
+      throw new IllegalArgumentException("View, store, and file names cannot be null");
     }
     this.view = view;
     this.store = store;

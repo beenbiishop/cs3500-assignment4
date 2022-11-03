@@ -8,6 +8,11 @@ import model.Image;
 import model.StoredImages;
 import view.ImageProcessorView;
 
+/**
+ * Class that represents a command, "Load", that the processor can handle. Implements the
+ * {@code ImageProcessorCmd} interface and execute the command. Loads an image from the Stored
+ * Images.
+ */
 public class LoadCmd implements ImageProcessorCmd {
 
   private final ImageProcessorView view;
@@ -15,6 +20,14 @@ public class LoadCmd implements ImageProcessorCmd {
   private final String path;
   private final String fileName;
 
+  /**
+   * Constructs a Load command.
+   *
+   * @param view     the view to display the messages to.
+   * @param store    the store to retrieve images from.
+   * @param path     the file path of the image to be loaded.
+   * @param fileName the file name of the image to be added.
+   */
   public LoadCmd(ImageProcessorView view, StoredImages store, String path, String fileName) {
     if (view == null || store == null || path == null || fileName == null) {
       throw new IllegalArgumentException("View, store, path, and fileName cannot be null");
