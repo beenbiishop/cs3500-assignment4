@@ -1,26 +1,8 @@
 # TODO
 
-## Pending Tasks
+## Model tasks
 
-1. Change back to using `Color` class throughout the project to store a pixel's color
-    * Maybe if the PPM is storing a value that is not 255, we should convert to use 255, or thrown
-      an error?
-2. Change the macro abstract class to make the iteration through the 2D array abstracted, and have
-   the pixel handlers be private on a per-subclass basis
-3. Remove the ImageState subclass. This is unnecessary since transformations always result in a new
-   image object being created.
-4. Add a new `Image` constructor that can construct a new image with the pixels of an existing image
-5. Change to four transformations that implement the macro class:
-    * Visualize class with **enums or lambda's as the input** to decide how to grayscale the image
-      based on the color value to evaluate (red, green, blue, value, intensity, luma)
-        * You could potentially extend this class to handle more types of grayscale in the future
-    * Shade class with an **integer value as the input** that can brighten an image by the value if
-      it is positive, or darken the image by the value if it is negative
-    * Horizontal class that flips the array horizontally (no inputs)
-    * Vertical class that flips the array vertically (no inputs)
-6. Add a `ImageCollection` class to the model that stores a `Collection` of `Image`'s. This will
-   allow for multiple images to be modified in one command. Collection stores the filename and the
-   image.
+**none for now**
 
 ## Controller flow
 
@@ -55,9 +37,7 @@
     * Else print a list of names in the collection object
 4. List available transformations command
     * That way you don't have to include all transformations in the menu
-5. Delete a currently stored image by name command
-    * If that image does not exist, say that, else remove from the collection object
-6. Save a currently stored image by name command and output file
+5. Save a currently stored image by name command and output file
     * Check if the image name does exist, else say it does not exist
     * If the image exists in the co
 
