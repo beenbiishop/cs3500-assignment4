@@ -1,22 +1,21 @@
 package model.transformations;
 
-import java.awt.Point;
+import java.awt.Color;
 import model.Image;
-import model.RGBPixel;
+import model.ImageImpl;
+import model.ImageTransformation;
 
-public class HorizontalFlip extends Flip {
+/**
+ * An implementation of the {@link ImageTransformation} interface representing a macro used to flip
+ * the pixels of an image horizontally.
+ */
+public class HorizontalFlip implements ImageTransformation {
 
-  private Image image;
 
   /**
-   * Constructs a new horizontal flip transformation with the given image.
-   *
-   * @param image the image to apply the transformation to
-   * @throws IllegalArgumentException if the image is null
+   * Constructs a new horizontal flip transformation macro object.
    */
-  public HorizontalFlip(Image image) throws IllegalArgumentException {
-    super(image);
-    this.image = image;
+  public HorizontalFlip() {
   }
 
   @Override

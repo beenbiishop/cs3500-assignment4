@@ -6,7 +6,9 @@ package model;
 public interface ImageTransformation {
 
   /**
-   * Applies this transformation to the given image.
+   * Apply this image transformation to the given image and return the transformed image.
+   *
+   * @return a new image with the transformation applied to the pixels of the given image
    */
-  void apply(Image image);
+  Image transform(Image image);
 }

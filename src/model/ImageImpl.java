@@ -12,10 +12,7 @@ import java.awt.Color;
  */
 public class ImageImpl implements Image {
 
-    private final int width;
-    private final int height;
-    private final RGBPixel[][] pixels;
-    private final String logMessage;
+  private final Color[][] pixels;
 
   /**
    * Constructs a new {@link ImageImpl} with the given pixels.
