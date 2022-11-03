@@ -58,7 +58,7 @@ public class BenController {
   }
 
   /**
-   * Constructs a map of known commands.
+   * Adds the commands to this object's map of known commands.
    */
   private void addCommands() {
     this.commands.put("load",
