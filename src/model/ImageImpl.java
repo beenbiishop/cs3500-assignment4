@@ -6,8 +6,9 @@ import java.awt.Color;
 /**
  * Implements the {@link Image} interface.
  *
- * <p>Each image is represented by a 2D array of colors {@code Color[width][height]} that
- * represents its pixels.</p>
+ * <p>Each image is represented by a 2D array of colors {@code Color[height][width]} that
+ * represents its pixels. A pixel's x value is it's column (width) index in the 2D array, and a
+ * pixel's y value it it's row (height) index in the 2D array.</p>
  */
 public class ImageImpl implements Image {
 
@@ -19,7 +20,7 @@ public class ImageImpl implements Image {
   /**
    * Constructs a new {@link ImageImpl} with the given pixels.
    *
-   * @param pixels the pixels of this image state as a 2D array {@code Color[width][height]}
+   * @param pixels the pixels of this image state as a 2D array {@code Color[height][width]}
    * @throws IllegalArgumentException if there is not at least one color in the given array.
    */
   public ImageImpl(Color[][] pixels) throws IllegalArgumentException {
@@ -53,7 +54,7 @@ public class ImageImpl implements Image {
    * Gets a copy of this image state's pixels.
    *
    * @return the pixels of the image state as a 2D array of {@link Color}s in the format
-   * {@code Color[width][height]}
+   * {@code Color[height][width]}
    */
   public Color[][] getPixels() {
     return this.pixels.clone();

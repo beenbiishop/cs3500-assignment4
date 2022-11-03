@@ -20,17 +20,16 @@ public class VerticalFlip extends Flip {
   }
 
   @Override
-  protected RGBPixel flipPixel(RGBPixel pixel) {
-    Point position = pixel.getPosition();
-    int x = position.x;
-    int y = this.height - position.y - 1;
-    Point newPosition = new Point(x, y);
-    return new RGBPixel(newPosition, pixel.getColor());
-  }
-
-  @Override
-  protected void updateImage(RGBPixel[][] pixels) {
-    this.image.update(pixels, "Flip vertically");
+  public Image transform(Image image) {
+    Color[][] newPixels = new Color[image.getHeight()][image.getWidth()];
+    for (int i = 0; i < image.getHeight(); i++) {
+      for (int j = 0; j < image.getWidth(); j++) {
+        Color pixel = image.getPixels()[i][j];
+        int y = image.getWidth() - j - 1;
+        newPixels[i][y] = pixel;
+      }
+    }
+    return new ImageImpl(newPixels);
   }
 
 }

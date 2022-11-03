@@ -20,17 +20,15 @@ public class HorizontalFlip extends Flip {
   }
 
   @Override
-  protected RGBPixel flipPixel(RGBPixel pixel) {
-    Point position = pixel.getPosition();
-    int x = this.width - position.x - 1;
-    int y = position.y;
-    Point newPosition = new Point(x, y);
-    return new RGBPixel(newPosition, pixel.getColor());
+  public Image transform(Image image) {
+    Color[][] newPixels = new Color[image.getHeight()][image.getWidth()];
+    for (int i = 0; i < image.getHeight(); i++) {
+      for (int j = 0; j < image.getWidth(); j++) {
+        Color pixel = image.getPixels()[i][j];
+        int x = image.getHeight() - i - 1;
+        newPixels[x][j] = pixel;
+      }
+    }
+    return new ImageImpl(newPixels);
   }
-
-  @Override
-  protected void updateImage(RGBPixel[][] pixels) {
-    this.image.update(pixels, "Flip horizontally");
-  }
-
 }
