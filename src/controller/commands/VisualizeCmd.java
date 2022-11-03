@@ -12,8 +12,9 @@ public class VisualizeCmd implements ImageProcessorCmd {
 
   private final ImageProcessorView view;
   private final StoredImages store;
-  private final String fileName;
   private final Channel channel;
+  private final String fileName;
+  private final String newFileName;
 
   public VisualizeCmd(ImageProcessorView view, StoredImages store, String fileName,
       Channel channel) {
@@ -22,8 +23,9 @@ public class VisualizeCmd implements ImageProcessorCmd {
     }
     this.view = view;
     this.store = store;
-    this.fileName = fileName;
     this.channel = channel;
+    this.fileName = fileName;
+    this.newFileName = newFileName;
   }
 
 
@@ -33,7 +35,7 @@ public class VisualizeCmd implements ImageProcessorCmd {
       Image retrieved = this.store.retrieve(this.fileName);
       ImageTransformation visualize = new Visualize(this.channel);
       Image processed = visualize.transform(retrieved);
-      this.store.add(this.fileName, processed, true);
+      this.store.add(this.newFileName, processed, true);
     } catch (IllegalArgumentException e) {
       this.view.renderMessage(e.getMessage());
     }

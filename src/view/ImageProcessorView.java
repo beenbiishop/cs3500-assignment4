@@ -1,7 +1,5 @@
 package view;
 
-import java.io.IOException;
-
 /**
  * This interface represents the view of the Image Processor. It contains methods that the
  * controller can call to render the view.
@@ -20,10 +18,9 @@ public interface ImageProcessorView {
   /**
    * Render the menu of commands to the provided data destination.
    *
-   * @throws IOException if transmission of the board to the provided data destination fails
+   * @throws IllegalStateException if transmission of the board to the provided data destination
+   *                               fails
    */
-  void renderMenu() throws IOException;
-
-  void welcomeMessage() throws IOException;
+  void renderMenu() throws IllegalStateException;
 
 }

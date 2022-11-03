@@ -12,6 +12,7 @@ public class VerticalFlipCmd implements ImageProcessorCmd {
   private final ImageProcessorView view;
   private final StoredImages store;
   private final String fileName;
+  private final String newFileName;
 
   public VerticalFlipCmd(ImageProcessorView view, StoredImages store, String fileName) {
     if (view == null || store == null || fileName == null) {
@@ -20,6 +21,7 @@ public class VerticalFlipCmd implements ImageProcessorCmd {
     this.view = view;
     this.store = store;
     this.fileName = fileName;
+    this.newFileName = newFileName;
   }
 
 
@@ -29,7 +31,7 @@ public class VerticalFlipCmd implements ImageProcessorCmd {
       Image retrieved = this.store.retrieve(this.fileName);
       ImageTransformation flip = new VerticalFlip();
       Image processed = flip.transform(retrieved);
-      this.store.add(this.fileName, processed, true);
+      this.store.add(this.newFileName, processed, true);
     } catch (IllegalArgumentException e) {
       this.view.renderMessage(e.getMessage());
     }
