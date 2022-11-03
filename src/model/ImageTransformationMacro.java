@@ -1,7 +1,5 @@
 package model;
 
-import java.awt.Color;
-
 /**
  * Implements the {@link ImageTransformation} interface as an abstract class.
  *
@@ -45,14 +43,14 @@ public abstract class ImageTransformationMacro implements ImageTransformation {
     int height = this.image.getHeight();
     for (int w = 0; w < width; w++) {
       for (int h = 0; h < height; h++) {
-        pixels[w][h] = this.changePixel(pixels[w][h], w, h);
+        pixels[w][h] = this.changePixel(pixels[w][h], h, w);
       }
     }
     return pixels;
   }
 
   /**
-   * Changes the given pixel to a new {@link Color}, based on the specifications of the macro's
+   * Changes the given pixel to a new {@link Pixel}, based on the specifications of the macro's
    * subclass.
    *
    * @param pixel     the pixel to change
