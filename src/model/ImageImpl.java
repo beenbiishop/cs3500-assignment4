@@ -56,6 +56,11 @@ public class ImageImpl implements Image {
   public Color[][] getPixels() {
     return this.pixels.clone();
   }
+
+  @Override
+  public ImageImpl copy() {
+    return new ImageImpl(this.pixels);
+  }
 }
 
 

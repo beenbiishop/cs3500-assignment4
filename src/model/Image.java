@@ -28,4 +28,11 @@ public interface Image {
    */
   Color[][] getPixels();
 
+  /**
+   * Returns a copy of this image object.
+   *
+   * @return a copy of this image
+   */
+  Image copy();
+
 }
