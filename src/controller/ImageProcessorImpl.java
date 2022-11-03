@@ -1,5 +1,12 @@
 package controller;
 
+import controller.commands.BrightnessCmd;
+import controller.commands.HorizontalFlipCmd;
+import controller.commands.LoadCmd;
+import controller.commands.SaveCmd;
+import controller.commands.VerticalFlipCmd;
+import controller.commands.VisualizeCmd;
+import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -39,7 +46,28 @@ public class ImageProcessorImpl implements ImageProcessor {
     this.view = view;
     this.store = new StoredImagesImpl();
     this.transformations = new HashMap<>();
-    // TODO: Add transformations
+  }
+
+  /**
+   * Creates a map of all the known commands.
+   *
+   * @return a map of all the names of the commands and a lambda function that represents a command.
+   */
+  private Map<String, Function<Scanner, ImageProcessorCmd>> knownCommands() {
+    Map<String, Function<Scanner, ImageProcessorCmd>> knownCommands = new HashMap<>();
+    Scanner scan = new Scanner(this.input);
+
+    knownCommands.put("load", s -> new LoadCmd());
+    knownCommands.put("save", s -> new SaveCmd());
+    knownCommands.put("brighten", s -> new BrightnessCmd(scan.nextInt()));
+    knownCommands.put("darken", s -> new BrightnessCmd(scan.nextInt() * -1));
+    knownCommands.put("horizontal-flip", s -> new HorizontalFlipCmd());
+    knownCommands.put("vertical-flip", s -> new VerticalFlipCmd());
+    knownCommands.put("red-component", s -> new VisualizeCmd(this.view, this.store, Channel.Red));
+    knownCommands.put("blue-component", s -> new VisualizeCmd(Channel.Blue));
+    knownCommands.put("green-component", s -> new VisualizeCmd(Channel.Green));
+
+    return this.transformations = new HashMap<>(knownCommands);
   }
 
   /**
@@ -55,12 +83,12 @@ public class ImageProcessorImpl implements ImageProcessor {
       if (in.equalsIgnoreCase("q") || in.equalsIgnoreCase("quit")) {
         return;
       }
-      Function<Scanner, ImageTransformation> cmd = knownCommands.getOrDefault(in, null);
+      Function<Scanner, ImageProcessorCmd> cmd = this.knownCommands().getOrDefault(in, null);
       if (cmd == null) {
         throw new IllegalArgumentException();
       } else {
         c = cmd.apply(scan);
-        c.apply(this.image);
+        c.execute(this.image);
       }
     }
   }
