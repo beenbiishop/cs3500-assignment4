@@ -7,16 +7,23 @@ import java.util.function.Function;
 import model.ImageTransformation;
 import model.StoredImages;
 import model.StoredImagesImpl;
-import model.transformations.HorizontalFlip;
-import model.transformations.VerticalFlip;
+import model.transformations.Visualize;
+import model.transformations.Visualize.Channel;
 import view.ImageProcessorView;
 
+// TODO: Add two maps of commands, one for image processing commands and one for menu, etc
+
+/**
+ * Implements the {@link ImageProcessor} interface to provide a controller for the image processor.
+ */
 public class ImageProcessorImpl implements ImageProcessor {
 
   private final Readable input;
   private final ImageProcessorView view;
   private final StoredImages store;
-  private final Map<String, Function<String, ImageTransformation>> transformations;
+  private final Map<String, Function<String, ImageTransformation>> menu;
+  private Map<String, Function<Scanner, ImageProcessorCmd>> transformations;
+
 
   /**
    * Constructs a new image processor controller with the given input and view.
@@ -40,24 +47,10 @@ public class ImageProcessorImpl implements ImageProcessor {
    */
   public void run() {
     Scanner scan = new Scanner(this.input);
-
-    //Creating a map of known transformations (command design pattern)
-    Map<String, Function<Scanner, ImageTransformation>> knownCommands = new HashMap<>();
-
-    knownCommands.put("load", s -> new HorizontalFlip(this.image));
-    knownCommands.put("save", s -> new VerticalFlip(this.image));
-    //edit these two so that you have a class for save and load!
-    knownCommands.put("brighten", s -> new Brighten(this.image,
-        s.nextInt())); // not sure how to give brighten the posInt/ not sure if this is right???
-    knownCommands.put("darken", s -> new Darken(this.image, s.nextInt()));
-    knownCommands.put("horizontal-flip", s -> new HorizontalFlip(this.image));
-    knownCommands.put("vertical-flip", s -> new VerticalFlip(this.image));
-    knownCommands.put("red-component", s -> new VisualizeR(this.image));
-    knownCommands.put("blue-component", s -> new VisualizeB(this.image));
-    knownCommands.put("green-component", s -> new VisualizeG(this.image));
-
     while (scan.hasNext()) {
-      ImageTransformation c;
+      ImageProcessorCmd c;
+      // Render the menu
+      // menu
       String in = scan.next();
       if (in.equalsIgnoreCase("q") || in.equalsIgnoreCase("quit")) {
         return;
