@@ -134,29 +134,7 @@ Rosemary, and has been used with her permission.
               represented
               by a Map<String, Image>, the string representing a fileName.
 
-#### Classes:
-
-* `ImageImpl` : Implements the `Image` interface, each image is represented by a 2D array of
-  colors.
-* `StoredImagesImpl` : Implements the `StoredImages` interface. The stored images are represented
-  by a Map<String, Image>, the string representing a fileName.
-
-##### Transformations:
-
-* `Brightness` : Implements the `ImageTransformation` interface and represents a macro that adjusts
-  the brightness of an image, both up the scale and down.
-* `HorizontalFlip` : Implements the `ImageTransformation` interface and represents a macro that
-  flips
-  an image along the horizontal axis.
-* `VerticalFlip`: Implements the `ImageTransformation` interface and represents a macro that flips
-  an
-  image along the vertical axis.
-* `Visualize` : Implements the `ImageTransformation` interface and represents a macro that
-  transforms the images to visualize the greyscale image by one of the following color
-  components : `visualize-red`, `visualize-blue`, `visualize-green`, `visualize-value`,
-  `visualize-intensity`, `visualize-luma`.
-
-## View
+### View
 
 * Interfaces
     * `ImageProcessorView` : This interface represents the view of the Image Processor. It contains

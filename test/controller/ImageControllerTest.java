@@ -66,14 +66,6 @@ public class ImageControllerTest {
     this.view = new ImageProcessorViewImpl(appendable);
     this.store = new StoredImagesImpl();
 
-    this.userCommandEx2 = "loadr res/ExampleImage.ppm ExampleImage" + System.lineSeparator();
-    this.targetStreamEx2 = new ByteArrayInputStream(this.userCommandEx2.getBytes());
-    this.in2 = new InputStreamReader(this.targetStreamEx2);
-
-    this.userCommandEx3 = "load res ExampleImage" + System.lineSeparator();
-    this.targetStreamEx3 = new ByteArrayInputStream(this.userCommandEx3.getBytes());
-    this.in3 = new InputStreamReader(this.targetStreamEx3);
-
   }
 
   @Test
@@ -129,17 +121,17 @@ public class ImageControllerTest {
 
   @Test
   public void testInvalidPath() {
-    StringBuilder log = new StringBuilder();
-    this.controller1 = new ImageProcessorControllerImpl(this.in3, this.view, this.store);
+    String userCommandEx3 = "load res.ppm ExampleImage" + System.lineSeparator();
+    InputStream targetStreamEx3 = new ByteArrayInputStream(userCommandEx3.getBytes());
+    Readable in3 = new InputStreamReader(targetStreamEx3);
+    this.appendable = new StringBuilder();
+    this.view = new ImageProcessorViewImpl(this.appendable);
+    this.controller1 = new ImageProcessorControllerImpl(in3, this.view, this.store);
 
-    try {
-      this.controller1.run();
-    } catch (IllegalArgumentException e) {
-      this.view.renderMessage(String.valueOf(e));
-    }
-
-    assertEquals(true, this.appendable.toString().contains("File type not supported"));
+    this.controller1.run();
+    assertTrue(this.appendable.toString().contains("File \"res.ppm\" not found"));
   }
+
 
   @Test
   public void testPPMHandlerProcess() {
@@ -170,7 +162,7 @@ public class ImageControllerTest {
   @Test
   public void testPPMHandlerExport() {
     String filePath = "res/ExampleImage.ppm";
-    String filePath2 = "res/ExampleImage.ppm";
+    String filePath2 = "res/exImage.ppm";
 
     ImageFileHandler ppmHandler1 = new ImagePPMHandler();
     Image processedImage = ppmHandler1.process(filePath);
@@ -180,6 +172,7 @@ public class ImageControllerTest {
     ppmHandler.export(this.beforeImage, filePath2);
     Image exportedImage = ppmHandler.process(filePath2);
 
+    //Checks if the ppmHandler saved the image correctly under the new filePath.
     assertArrayEquals(processedImage.getPixels(), exportedImage.getPixels());
   }
 

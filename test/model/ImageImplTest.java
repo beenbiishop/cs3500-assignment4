@@ -15,14 +15,13 @@ import org.junit.Test;
 public class ImageImplTest {
 
   private Color[][] pixels;
-  private Color[][] pixels2;
   private Image image;
   private Image image2;
 
   @Before
   public void setUp() {
     this.pixels = new Color[3][2];
-    this.pixels2 = new Color[12][27];
+    Color[][] pixels2 = new Color[12][27];
 
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 2; j++) {
@@ -40,12 +39,12 @@ public class ImageImplTest {
 
     for (int i = 0; i < 12; i++) {
       for (int j = 0; j < 27; j++) {
-        this.pixels2[i][j] = Color.BLACK;
+        pixels2[i][j] = Color.BLACK;
       }
     }
 
     this.image = new ImageImpl(this.pixels);
-    this.image2 = new ImageImpl(this.pixels2);
+    this.image2 = new ImageImpl(pixels2);
   }
 
   @Test

@@ -40,8 +40,7 @@ public class ImageImpl implements Image {
    * @return the width of the image as an integer
    */
   public int getWidth() {
-    int height = this.pixels[0].length;
-    return height;
+    return this.pixels[0].length;
   }
 
   /**
