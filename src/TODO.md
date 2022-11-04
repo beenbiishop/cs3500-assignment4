@@ -3,8 +3,10 @@
 1. Test each command
 2. Clean the messages
 3. Generate an image for each
-4. Write the `README.md`
-5. Generate the class diagram
+4. Look through tests and fix as needed
+5. Write the `README.md`
+6. Generate the class diagram
+7. Generate the example transformed images
 
 ## Test each command
 
@@ -41,3 +43,11 @@
 13. [ ] `horizontal-flip`
 14. [ ] `brighten`
 15. [ ] `darken`
+
+## Testing
+
+1. [ ] Write tests for the view
+2. [ ] Go through all controller methods and ensure testing is adequate
+3. [ ] Upload to Handins and ensure we get all style points
+4. [ ] Check against notes to ensure we have all stuff implemented
+5. [ ] Check against assignment to ensure we have all stuff implemented

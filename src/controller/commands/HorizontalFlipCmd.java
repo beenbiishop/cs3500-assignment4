@@ -47,7 +47,8 @@ public class HorizontalFlipCmd implements ImageProcessorCmd {
     Image processed = flip.transform(retrieved);
     this.store.add(this.newFileName, processed, true);
     this.view.renderMessage(
-        "Image " + this.fileName + " has been flipped horizontally)" + System.lineSeparator());
+        "Image " + this.fileName + " has been flipped horizontally)" + System.lineSeparator()
+            + "Command: ");
   }
 
 }

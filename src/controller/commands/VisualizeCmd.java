@@ -52,6 +52,6 @@ public class VisualizeCmd implements ImageProcessorCmd {
     this.store.add(this.newFileName, processed, true);
     this.view.renderMessage(
         "Image " + this.fileName + " has been visualized successfully by the channel "
-            + this.channel.toString() + System.lineSeparator());
+            + this.channel.toString() + System.lineSeparator() + "Command: ");
   }
 }

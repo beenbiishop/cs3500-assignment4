@@ -45,9 +45,9 @@ public class LoadCmd implements ImageProcessorCmd {
       Image processed = handler.process(this.path);
       this.store.add(this.fileName, processed, true);
       this.view.renderMessage(
-          "Image loaded successfully as " + this.fileName + System.lineSeparator());
+          "Image loaded successfully as " + this.fileName + System.lineSeparator() + "Command: ");
     } else {
-      this.view.renderMessage("File type not supported" + System.lineSeparator());
+      this.view.renderMessage("File type not supported" + System.lineSeparator() + "Command: ");
     }
   }
 }

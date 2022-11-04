@@ -76,12 +76,14 @@ public class ImageProcessorControllerImpl implements ImageProcessorController {
   public void run() {
     this.view.renderMessage("Welcome to the Image Processor!" + System.lineSeparator());
     this.view.renderMessage(
-        "Type \"menu\" to see the list of commands, or \"quit\" to exit." + System.lineSeparator());
+        "Type \"menu\" to see the list of supported commands, or \"quit\" to exit"
+            + System.lineSeparator() + "After entering a command, hit enter to process it"
+            + System.lineSeparator() + "Command: ");
 
     while (scan.hasNext()) {
       String command = scan.next();
       if (command.equalsIgnoreCase("q") || command.equalsIgnoreCase("quit")) {
-        this.view.renderMessage("Quitting..." + System.lineSeparator());
+        this.view.renderMessage("Quitting...");
         return;
       } else {
         ImageProcessorCmd c;
@@ -89,20 +91,22 @@ public class ImageProcessorControllerImpl implements ImageProcessorController {
         Function<Scanner, ImageProcessorCmd> cmd = this.commands.getOrDefault(command, null);
         try {
           if (cmd == null) {
-            throw new IllegalArgumentException("Invalid command. Please try again.");
+            throw new IllegalArgumentException("Invalid command, please try again");
           } else {
             c = cmd.apply(scan);
             c.execute();
           }
         } catch (IllegalArgumentException e) {
-          this.view.renderMessage("Error: " + e.getMessage() + System.lineSeparator());
+          this.view.renderMessage(
+              "Error: " + e.getMessage() + System.lineSeparator() + "Command: ");
         }
       }
     }
   }
 
   /**
-   * Adds all supported commands to this controller object's map of valid commands.
+   * Adds all supported commands and the lambda functions to create the command objects to this
+   * controller object's map of valid commands.
    */
   private void addCommands() {
     this.commands.put("menu", (Scanner s) -> new MenuCmd(this.view));

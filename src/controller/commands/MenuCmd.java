@@ -26,6 +26,7 @@ public class MenuCmd implements ImageProcessorCmd {
   @Override
   public void execute() {
     this.view.renderMenu();
+    this.view.renderMessage("Command: ");
   }
 
 }

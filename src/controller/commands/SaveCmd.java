@@ -44,9 +44,9 @@ public class SaveCmd implements ImageProcessorCmd {
       Image retrieved = this.store.retrieve(this.fileName);
       handler = new ImagePPMHandler();
       handler.export(retrieved, this.path);
-      this.view.renderMessage("Image saved successfully" + System.lineSeparator());
+      this.view.renderMessage("Image saved successfully" + System.lineSeparator() + "Command: ");
     } else {
-      this.view.renderMessage("File type not supported" + System.lineSeparator());
+      this.view.renderMessage("File type not supported" + System.lineSeparator() + "Command: ");
     }
   }
 }
