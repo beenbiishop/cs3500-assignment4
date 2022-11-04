@@ -26,7 +26,7 @@ public class ImageControllerTest {
 
   @Test
   public void testPPMHandlerProcess() {
-    String filePath = "C:/Users/sm1se/Documents/OOD/cs3500-assignment4/res/exampleImage.ppm";
+    String filePath = "res/ExampleImage.ppm";
     //this is what my file path is, i made 3 x 3 image for testing purposes
 
     Color[][] pixels = new Color[3][3];
@@ -54,8 +54,7 @@ public class ImageControllerTest {
 
   @Test
   public void testPPMHandlerExport() {
-    String filePath = "C:/Users/sm1se/Documents/OOD/cs3500-assignment4/res/exampleImage.ppm";
-    //this is what my file path is, i made 3 x 3 image for testing purposes
+    String filePath = "res/ExampleImage.ppm";
 
     ImageUtil util = new ImageUtil();
     Color[][] pixels = new Color[3][3];
@@ -79,8 +78,7 @@ public class ImageControllerTest {
     ImageFileHandler ppmHandler = new ImagePPMHandler();
 
     //idk why the imageUtil class here is not being recognized by java??
-
-    assertEquals(util.readPPM(), ppmHandler.export(loadedImage, filePath));
+    assertEquals(util.readPPM(filePath), ppmHandler.export(loadedImage, filePath));
   }
 
   @Test
@@ -88,7 +86,7 @@ public class ImageControllerTest {
     Appendable appendable = new StringBuilder();
     ImageProcessorView view = new ImageProcessorViewImpl(appendable);
     StoredImages store = new StoredImagesImpl();
-    String fileName = "exampleImage.ppm";
+    String fileName = "ExampleImage.ppm";
     String newFileName = "HorizontalFlippedImage.ppm";
     ImageProcessorCmd horFlip = new HorizontalFlipCmd(view, store, fileName, newFileName);
     horFlip.execute();
@@ -112,7 +110,7 @@ public class ImageControllerTest {
     }
     Image horizontalFLippedImage = new ImageImpl(newPixels);
 
-    assertEquals(horizontalFLippedImage, store.retrieve(fileName));
+    assertEquals(horizontalFLippedImage, store.retrieve(newFileName));
   }
 
   @Test
@@ -120,7 +118,7 @@ public class ImageControllerTest {
     Appendable appendable = new StringBuilder();
     ImageProcessorView view = new ImageProcessorViewImpl(appendable);
     StoredImages store = new StoredImagesImpl();
-    String fileName = "exampleImage.ppm";
+    String fileName = "ExampleImage.ppm";
     String newFileName = "VerticallyFlippedImage.ppm";
 
     ImageProcessorCmd verFlip = new VerticalFlipCmd(view, store, fileName, newFileName);
@@ -145,7 +143,7 @@ public class ImageControllerTest {
     }
     Image verticalFLippedImage = new ImageImpl(newPixels);
 
-    assertEquals(verticalFLippedImage, store.retrieve(fileName));
+    assertEquals(verticalFLippedImage, store.retrieve(newFileName));
   }
 
   @Test
@@ -153,10 +151,11 @@ public class ImageControllerTest {
     Appendable appendable = new StringBuilder();
     ImageProcessorView view = new ImageProcessorViewImpl(appendable);
     StoredImages store = new StoredImagesImpl();
-    String fileName = "exampleImage.ppm";
+    String fileName = "ExampleImage.ppm";
     String newFileName = "RedVisualizedImage.ppm";
 
-    ImageProcessorCmd visualizeRed = new VisualizeCmd(view, store, fileName, Channel.Red);
+    ImageProcessorCmd visualizeRed = new VisualizeCmd(view, store, Channel.Red, fileName,
+        newFileName);
     visualizeRed.execute();
 
     Color[][] newPixels = new Color[3][3];
@@ -179,7 +178,7 @@ public class ImageControllerTest {
     }
     Image visualizedImage = new ImageImpl(newPixels);
 
-    assertEquals(visualizedImage, store.retrieve(fileName));
+    assertEquals(visualizedImage, store.retrieve(newFileName));
   }
 
   @Test
@@ -187,8 +186,11 @@ public class ImageControllerTest {
     Appendable appendable = new StringBuilder();
     ImageProcessorView view = new ImageProcessorViewImpl(appendable);
     StoredImages store = new StoredImagesImpl();
-    String fileName = "exampleImage.ppm";
-    ImageProcessorCmd visualizeGreen = new VisualizeCmd(view, store, fileName, Channel.Green);
+    String fileName = "ExampleImage.ppm";
+    String newFileName = "GreenVisualizedImage.ppm";
+
+    ImageProcessorCmd visualizeGreen = new VisualizeCmd(view, store, Channel.Green, fileName,
+        newFileName);
     visualizeGreen.execute();
 
     Color[][] newPixels = new Color[3][3];
@@ -210,7 +212,7 @@ public class ImageControllerTest {
     }
     Image visualizedImage = new ImageImpl(newPixels);
 
-    assertEquals(visualizedImage, store.retrieve(fileName));
+    assertEquals(visualizedImage, store.retrieve(newFileName));
   }
 
   @Test
@@ -218,8 +220,11 @@ public class ImageControllerTest {
     Appendable appendable = new StringBuilder();
     ImageProcessorView view = new ImageProcessorViewImpl(appendable);
     StoredImages store = new StoredImagesImpl();
-    String fileName = "exampleImage.ppm";
-    ImageProcessorCmd visualizeBlue = new VisualizeCmd(view, store, fileName, Channel.Blue);
+    String fileName = "ExampleImage.ppm";
+    String newFileName = "BlueVisualizedImage.ppm";
+
+    ImageProcessorCmd visualizeBlue = new VisualizeCmd(view, store, Channel.Blue, fileName,
+        newFileName);
     visualizeBlue.execute();
 
     Color[][] newPixels = new Color[3][3];
@@ -241,7 +246,7 @@ public class ImageControllerTest {
     }
     Image visualizedImage = new ImageImpl(newPixels);
 
-    assertEquals(visualizedImage, store.retrieve(fileName));
+    assertEquals(visualizedImage, store.retrieve(newFileName));
   }
 
   @Test
@@ -249,8 +254,11 @@ public class ImageControllerTest {
     Appendable appendable = new StringBuilder();
     ImageProcessorView view = new ImageProcessorViewImpl(appendable);
     StoredImages store = new StoredImagesImpl();
-    String fileName = "exampleImage.ppm";
-    ImageProcessorCmd visualizeLuma = new VisualizeCmd(view, store, fileName, Channel.Luma);
+    String fileName = "ExampleImage.ppm";
+    String newFileName = "LumaVisualizedImage.ppm";
+
+    ImageProcessorCmd visualizeLuma = new VisualizeCmd(view, store, Channel.Luma, fileName,
+        newFileName);
     visualizeLuma.execute();
 
     Color[][] newPixels = new Color[3][3];
@@ -272,7 +280,7 @@ public class ImageControllerTest {
     }
     Image visualizedImage = new ImageImpl(newPixels);
 
-    assertEquals(visualizedImage, store.retrieve(fileName));
+    assertEquals(visualizedImage, store.retrieve(newFileName));
   }
 
   @Test
@@ -280,8 +288,11 @@ public class ImageControllerTest {
     Appendable appendable = new StringBuilder();
     ImageProcessorView view = new ImageProcessorViewImpl(appendable);
     StoredImages store = new StoredImagesImpl();
-    String fileName = "exampleImage.ppm";
-    ImageProcessorCmd visualizeValue = new VisualizeCmd(view, store, fileName, Channel.Value);
+    String fileName = "ExampleImage.ppm";
+    String newFileName = "ValueVisualizedImage.ppm";
+
+    ImageProcessorCmd visualizeValue = new VisualizeCmd(view, store, Channel.Value, fileName,
+        newFileName);
     visualizeValue.execute();
 
     Color[][] newPixels = new Color[3][3];
@@ -301,7 +312,7 @@ public class ImageControllerTest {
     }
     Image visualizedImage = new ImageImpl(newPixels);
 
-    assertEquals(visualizedImage, store.retrieve(fileName));
+    assertEquals(visualizedImage, store.retrieve(newFileName));
   }
 
   @Test
@@ -309,9 +320,11 @@ public class ImageControllerTest {
     Appendable appendable = new StringBuilder();
     ImageProcessorView view = new ImageProcessorViewImpl(appendable);
     StoredImages store = new StoredImagesImpl();
-    String fileName = "exampleImage.ppm";
-    ImageProcessorCmd visualizeIntensity = new VisualizeCmd(view, store, fileName,
-        Channel.Intensity);
+    String fileName = "ExampleImage.ppm";
+    String newFileName = "IntensityVisualizedImage.ppm";
+
+    ImageProcessorCmd visualizeIntensity = new VisualizeCmd(view, store, Channel.Intensity,
+        fileName, newFileName);
     visualizeIntensity.execute();
 
     Color[][] newPixels = new Color[3][3];
@@ -331,7 +344,7 @@ public class ImageControllerTest {
     }
     Image visualizedImage = new ImageImpl(newPixels);
 
-    assertEquals(visualizedImage, store.retrieve(fileName));
+    assertEquals(visualizedImage, store.retrieve(newFileName));
   }
 
 

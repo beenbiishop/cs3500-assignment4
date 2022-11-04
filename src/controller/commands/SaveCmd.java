@@ -28,7 +28,7 @@ public class SaveCmd implements ImageProcessorCmd {
    */
   public SaveCmd(ImageProcessorView view, StoredImages store, String path, String fileName) {
     if (view == null || store == null || path == null || fileName == null) {
-      throw new IllegalArgumentException("View, store, path, and fileName cannot be null");
+      throw new IllegalArgumentException("View, store, path, and file name cannot be null");
     }
     this.view = view;
     this.store = store;
@@ -45,11 +45,12 @@ public class SaveCmd implements ImageProcessorCmd {
         Image retrieved = this.store.retrieve(this.fileName);
         handler = new ImagePPMHandler();
         handler.export(retrieved, this.path);
+        this.view.renderMessage("Image saved successfully" + System.lineSeparator());
       } else {
-        this.view.renderMessage("File type not supported");
+        this.view.renderMessage("File type not supported" + System.lineSeparator());
       }
     } catch (IllegalArgumentException e) {
-      this.view.renderMessage(e.getMessage());
+      this.view.renderMessage(e.getMessage() + System.lineSeparator());
     }
   }
 }

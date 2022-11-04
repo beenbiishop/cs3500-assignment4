@@ -16,14 +16,33 @@ import model.transformations.Visualize.Channel;
 import view.ImageProcessorView;
 
 /**
- * Implements the {@code ImageProcessorController} interface supporting the following commands:
+ * Implements the {@code ImageProcessorController} interface supporting the following commands.
+ *
  * <ul>
- *   <li>"menu" - outputs the menu with supported commands to the user</li>
- *   <li>"load {@code <image file path>} {@code <name to load as>}" - loads a new image into the image processor"</li>
- *   <li>"save {@code <output file path>} {@code <name of image to save>}" - saves a loaded image to an output file"</li>
  *   <li>"quit" - quits the program and discards loaded images</li>
- *   <li>"brighten {@code <name of image to transform>} {@code <amount to brighten by>}" - applies a brightness
+ *   <li>"menu" - outputs the menu with supported commands to the user</li>
+ *   <li>"load {@code <image file path>} {@code <name to load as>}" - loads a new image into the
+ *   image processor"</li>
+ *   <li>"save {@code <output file path>} {@code <name of image to save>}" - saves a loaded image
+ *   to an output file"</li>
+ *   <li>"visualize-{@code <value to visualize (red, blue, green, value, intensity, luma)>}
+ *   {@code <name of image to transform>} {@code <name of new transformed image>}" - applies a
+ *   visualization transformation to an image "</li>
+ *   <li>"brighten {@code <integer to brighten by>} {@code <name of image to transform>}
+ *   {@code <name of new transformed image>}" - applies a brighten transformation to an image"</li>
+ *   <li>"darken {@code <integer to darken by>} {@code <name of image to transform>}
+ *  {@code <name of new transformed image>}" - applies a darken transformation to an image"</li>
+ *  <li>"horizontal-flip {@code <name of image to transform>}
+ *  {@code <name of new transformed image>}" - applies a horizontal flip
+ *  transformation to an image"</li>
+ *  <li>"vertical-flip {@code <name of image to transform>} {@code <name of new transformed image>}"
+ *  - applies a vertical flip transformation to an image"</li>
  * </ul>
+ *
+ * <p>
+ * If an image name already exists in the image processor, the command will overwrite the existing
+ * image with the new image.
+ * </p>
  */
 public class ImageProcessorControllerImpl implements ImageProcessorController {
 
@@ -55,22 +74,28 @@ public class ImageProcessorControllerImpl implements ImageProcessorController {
 
   @Override
   public void run() {
+    this.view.renderMessage("Welcome to the Image Processor!" + System.lineSeparator());
+    this.view.renderMessage(
+        "Type \"menu\" to see the list of commands, or \"quit\" to exit." + System.lineSeparator());
 
     while (scan.hasNext()) {
       String command = scan.next();
       if (command.equalsIgnoreCase("q") || command.equalsIgnoreCase("quit")) {
+        this.view.renderMessage("Quitting..." + System.lineSeparator());
         return;
       } else {
         ImageProcessorCmd c;
-        // Render the menu
-        // menu
         this.addCommands();
         Function<Scanner, ImageProcessorCmd> cmd = this.commands.getOrDefault(command, null);
-        if (cmd == null) {
-          throw new IllegalArgumentException();
-        } else {
-          c = cmd.apply(scan);
-          c.execute();
+        try {
+          if (cmd == null) {
+            throw new IllegalArgumentException("Invalid command. Please try again.");
+          } else {
+            c = cmd.apply(scan);
+            c.execute();
+          }
+        } catch (IllegalArgumentException e) {
+          this.view.renderMessage(e.getMessage() + System.lineSeparator());
         }
       }
     }
@@ -101,12 +126,12 @@ public class ImageProcessorControllerImpl implements ImageProcessorController {
     this.commands.put("brighten",
         (Scanner s) -> new BrightnessCmd(this.view, this.store, s.nextInt(), s.next(), s.next()));
     this.commands.put("darken",
-        (Scanner s) -> new BrightnessCmd(this.view, this.store, s.nextInt(), s.next(), s.next()));
+        (Scanner s) -> new BrightnessCmd(this.view, this.store, (s.nextInt() * -1), s.next(),
+            s.next()));
     this.commands.put("horizontal-flip",
         (Scanner s) -> new HorizontalFlipCmd(this.view, this.store, s.next(), s.next()));
     this.commands.put("vertical-flip",
         (Scanner s) -> new VerticalFlipCmd(this.view, this.store, s.next(), s.next()));
   }
-
 
 }

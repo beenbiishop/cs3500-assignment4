@@ -11,13 +11,6 @@ import model.ImageTransformation;
  */
 public class VerticalFlip implements ImageTransformation {
 
-
-  /**
-   * Constructs a new vertical flip transformation macro object.
-   */
-  public VerticalFlip() {
-  }
-
   @Override
   public Image transform(Image image) {
     Color[][] newPixels = new Color[image.getHeight()][image.getWidth()];

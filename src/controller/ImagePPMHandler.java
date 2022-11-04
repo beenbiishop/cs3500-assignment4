@@ -75,9 +75,7 @@ public class ImagePPMHandler implements ImageFileHandler {
     }
 
     try {
-      FileOutputStream fos = new FileOutputStream(path);
-      OutputStreamWriter osw = new OutputStreamWriter(fos);
-      writer = new BufferedWriter(osw);
+      writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path)));
     } catch (FileNotFoundException e) {
       throw new IllegalArgumentException(e.getMessage());
     }
@@ -96,6 +94,7 @@ public class ImagePPMHandler implements ImageFileHandler {
           writer.write(pixel.getBlue() + System.lineSeparator());
         }
       }
+      writer.flush();
       writer.close();
     } catch (Exception e) {
       throw new IllegalArgumentException(e.getMessage());

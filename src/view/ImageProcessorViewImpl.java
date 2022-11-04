@@ -2,6 +2,10 @@ package view;
 
 import java.io.IOException;
 
+/**
+ * Implements the {@link ImageProcessorView} interface and handles the appending of messages sent to
+ * the user by the controller.
+ */
 public class ImageProcessorViewImpl implements ImageProcessorView {
 
   private Appendable appendable;
@@ -24,20 +28,27 @@ public class ImageProcessorViewImpl implements ImageProcessorView {
     }
   }
 
-
   @Override
   public void renderMenu() throws IllegalStateException {
+    this.renderMessage("quit - quits the program" + System.lineSeparator());
     this.renderMessage(
-        "load <filename> - loads the image from the given file" + System.lineSeparator());
-    this.renderMessage("save <filename> - saves the image to the given file\n");
-    this.renderMessage("menu - displays the menu of commands\n");
-    this.renderMessage("brighten - brightens the image\n");
-    this.renderMessage("darken - darkens the image\n");
-    this.renderMessage("horizontal-flip - flips the image horizontally\n");
-    this.renderMessage("vertical-flip - flips the image vertically\n");
+        "load <path> <filename> - loads an image (identified by given name) into the processor"
+            + System.lineSeparator());
     this.renderMessage(
-        "visualize-<component> - transforms the image to greyscale using a chosen component\n");
-    this.renderMessage("quit - quits the program\n");
+        "save <path> <filename> - saves an image to an output file" + System.lineSeparator());
+    this.renderMessage("menu - displays the menu of commands" + System.lineSeparator());
+    this.renderMessage(
+        "visualize-<component> <filename> <new filename> - transforms an image to a new image"
+            + " greyscaled using a chosen component" + System.lineSeparator());
+    this.renderMessage("brighten <amount> <filename> <new filename> - transforms an image to a "
+        + "new image brightened by an amount" + System.lineSeparator());
+    this.renderMessage("darken <amount> <filename> <new filename> - transforms an image to a "
+        + "new image darkened by an amount" + System.lineSeparator());
+    this.renderMessage("horizontal-flip <filename> <new filename> - horizontally flips an image"
+        + " to a new image" + System.lineSeparator());
+    this.renderMessage(
+        "vertical-flip <filename> <new filename> - vertically flips an image" + " to a new image"
+            + System.lineSeparator());
   }
 
 }
