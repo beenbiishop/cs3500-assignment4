@@ -50,7 +50,8 @@ public class Visualize implements ImageTransformation {
             newValue = (pixel.getRed() + pixel.getBlue() + pixel.getGreen()) / 3;
             break;
           default:
-            throw new IllegalArgumentException("Invalid color channel.");
+            // impossible to get to this point
+            throw new IllegalArgumentException("Invalid channel");
         }
         Color newPixel = new Color(newValue, newValue, newValue);
         newPixels[i][j] = newPixel;

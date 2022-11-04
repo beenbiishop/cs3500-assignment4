@@ -46,16 +46,12 @@ public class VisualizeCmd implements ImageProcessorCmd {
 
   @Override
   public void execute() {
-    try {
-      Image retrieved = this.store.retrieve(this.fileName);
-      ImageTransformation visualize = new Visualize(this.channel);
-      Image processed = visualize.transform(retrieved);
-      this.store.add(this.newFileName, processed, true);
-      this.view.renderMessage(
-          "Image " + this.fileName + " has been visualized successfully by the channel "
-              + this.channel.toString() + System.lineSeparator());
-    } catch (IllegalArgumentException e) {
-      this.view.renderMessage(e.getMessage() + System.lineSeparator());
-    }
+    Image retrieved = this.store.retrieve(this.fileName);
+    ImageTransformation visualize = new Visualize(this.channel);
+    Image processed = visualize.transform(retrieved);
+    this.store.add(this.newFileName, processed, true);
+    this.view.renderMessage(
+        "Image " + this.fileName + " has been visualized successfully by the channel "
+            + this.channel.toString() + System.lineSeparator());
   }
 }

@@ -49,7 +49,8 @@ public class StoredImagesImpl implements StoredImages {
   public Image retrieve(String fileName) throws IllegalArgumentException {
     Image retrieved = this.storedImages.get(fileName);
     if (retrieved == null) {
-      throw new IllegalArgumentException("No image with that file name has been loaded");
+      throw new IllegalArgumentException(
+          "No image with the file name \"" + fileName + "\" has been loaded");
     } else {
       return retrieved.copy();
     }

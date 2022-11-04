@@ -61,11 +61,12 @@ public class ImageImpl implements Image {
   }
 
   /**
-   * Creates a deep copy of a given pixel 2D array of colors.
+   * Creates a deep copy of a given pixel 2D array of colors to ensure an image's pixels are not
+   * modified by other classes.
    *
-   * @param original the original pixel array to copy
-   * @return a deep copy of the given pixel array
-   * @throws IllegalArgumentException if the given array is null or empty, or if any pixels are
+   * @param original the original pixel 2D array of colors to copy
+   * @return a deep copy of the given pixel 2D array of colors
+   * @throws IllegalArgumentException if the original array is null or empty, or if any pixels are
    *                                  null
    */
   private Color[][] copyPixels(Color[][] original) throws IllegalArgumentException {

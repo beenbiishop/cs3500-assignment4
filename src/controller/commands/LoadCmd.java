@@ -41,18 +41,14 @@ public class LoadCmd implements ImageProcessorCmd {
 
   @Override
   public void execute() {
-    try {
-      if (this.path.endsWith(".ppm")) {
-        ImageFileHandler handler = new ImagePPMHandler();
-        Image processed = handler.process(this.path);
-        this.store.add(this.fileName, processed, true);
-        this.view.renderMessage(
-            "Image loaded successfully as " + this.fileName + System.lineSeparator());
-      } else {
-        this.view.renderMessage("File type not supported" + System.lineSeparator());
-      }
-    } catch (IllegalArgumentException e) {
-      this.view.renderMessage(e.getMessage() + System.lineSeparator());
+    if (this.path.endsWith(".ppm")) {
+      ImageFileHandler handler = new ImagePPMHandler();
+      Image processed = handler.process(this.path);
+      this.store.add(this.fileName, processed, true);
+      this.view.renderMessage(
+          "Image loaded successfully as " + this.fileName + System.lineSeparator());
+    } else {
+      this.view.renderMessage("File type not supported" + System.lineSeparator());
     }
   }
 }

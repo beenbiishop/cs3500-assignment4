@@ -1,5 +1,12 @@
 package model;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.awt.Color;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,18 +59,81 @@ public class StoredImagesImplTest {
   }
 
   @Test
-  public void add() {
+  public void testAddForced() {
+    this.store2.add("image1", this.image1, true);
+    this.store2.add("image1", this.image2, true);
+    Image retrieved = this.store2.retrieve("image1");
+    assertArrayEquals(this.image2.getPixels(), retrieved.getPixels());
   }
 
   @Test
-  public void remove() {
+  public void testAddNotForced() {
+    this.store2.add("image2", this.image2, false);
+    try {
+      this.store2.add("image2", this.image1, false);
+      fail("Exception not thrown when adding an image with a duplicate file name without force");
+    } catch (IllegalArgumentException e) {
+      assertEquals("An image with that file name already exists", e.getMessage());
+    }
+    assertArrayEquals(this.image2.getPixels(), this.store2.retrieve("image2").getPixels());
   }
 
   @Test
-  public void exists() {
+  public void testAddMutable() {
+    this.store2.add("image1", this.image1, true);
+    this.image1 = new ImageImpl(this.pixels2);
+    Image retrieved = this.store2.retrieve("image1");
+    assertArrayEquals(this.pixels1, retrieved.getPixels());
   }
 
   @Test
-  public void retrieve() {
+  public void testRemove() {
+    this.store1.remove("image1");
+    this.store1.remove("image2");
+
+    try {
+      this.store1.retrieve("image1");
+      fail("Exception not thrown after attempting to retrieve an image that has been removed");
+    } catch (IllegalArgumentException e) {
+      assertEquals("No image with the file name \"image1\" has been loaded", e.getMessage());
+    }
+
+    try {
+      this.store1.retrieve("image2");
+      fail("Exception not thrown after attempting to retrieve an image that has been removed");
+    } catch (IllegalArgumentException e) {
+      assertEquals("No image with the file name \"image2\" has been loaded", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testExists() {
+    assertTrue(this.store1.exists("image1"));
+    assertTrue(this.store1.exists("image2"));
+    assertFalse(this.store1.exists("image3"));
+    assertFalse(this.store2.exists("image1"));
+  }
+
+  @Test
+  public void testRetrieve() {
+    this.store2.add("image1", this.image1, true);
+    this.store2.add("image2", this.image2, true);
+    Image retrieved1 = this.store2.retrieve("image1");
+    Image retrieved2 = this.store2.retrieve("image2");
+    assertEquals(this.image1.getHeight(), retrieved1.getHeight());
+    assertEquals(this.image1.getWidth(), retrieved1.getWidth());
+    assertArrayEquals(this.image1.getPixels(), retrieved1.getPixels());
+    assertArrayEquals(this.image2.getPixels(), retrieved2.getPixels());
+  }
+
+  @Test
+  public void testRetrieveNoFile() {
+    try {
+      this.store1.retrieve("fakeimage");
+      fail("Exception not thrown when retrieving an image that does not exist");
+    } catch (IllegalArgumentException e) {
+      assertEquals("No image with the file name \"fakeimage\"" + " has been loaded",
+          e.getMessage());
+    }
   }
 }

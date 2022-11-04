@@ -22,7 +22,7 @@ public class Brightness implements ImageTransformation {
    */
   public Brightness(int amount) throws IllegalArgumentException {
     if (amount == 0) {
-      throw new IllegalArgumentException("The amount must be positive or negative");
+      throw new IllegalArgumentException("The adjustment amount must be non-zero");
     }
     this.amount = amount;
   }

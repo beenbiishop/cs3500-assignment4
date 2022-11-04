@@ -23,7 +23,7 @@ public class ImagePPMHandler implements ImageFileHandler {
     try {
       scan = new Scanner(new FileInputStream(path));
     } catch (FileNotFoundException e) {
-      throw new IllegalArgumentException("File " + path + " found");
+      throw new IllegalArgumentException("File \"" + path + "\" not found");
     }
 
     StringBuilder sb = new StringBuilder();
@@ -49,7 +49,7 @@ public class ImagePPMHandler implements ImageFileHandler {
 
     if (maxValue != 255) {
       throw new IllegalArgumentException(
-          "Invalid PPM file: maximum value of a color in this file " + "should be 255");
+          "Invalid PPM file: maximum value of a color in this file should be 255");
     }
 
     Color[][] pixels = new Color[height][width];
@@ -77,12 +77,12 @@ public class ImagePPMHandler implements ImageFileHandler {
     try {
       writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path)));
     } catch (FileNotFoundException e) {
-      throw new IllegalArgumentException(e.getMessage());
+      throw new IllegalArgumentException("Export file location \"" + path + "\" is invalid");
     }
 
     try {
       writer.write("P3" + System.lineSeparator());
-      writer.write("# Created by Ben and Smita's ImagePPMHandler" + System.lineSeparator());
+      writer.write("# Created by Ben and Smita's Image Processor" + System.lineSeparator());
       writer.write(image.getWidth() + " " + image.getHeight() + System.lineSeparator());
       writer.write("255" + System.lineSeparator());
       Color[][] pixels = image.getPixels();

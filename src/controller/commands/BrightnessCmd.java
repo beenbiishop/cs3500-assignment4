@@ -47,15 +47,11 @@ public class BrightnessCmd implements ImageProcessorCmd {
 
   @Override
   public void execute() {
-    try {
-      Image retrieved = this.store.retrieve(this.fileName);
-      ImageTransformation brightness = new Brightness(this.amount);
-      Image processed = brightness.transform(retrieved);
-      this.store.add(this.newFileName, processed, true);
-      this.view.renderMessage(
-          "Image " + this.fileName + " has been brightened)" + System.lineSeparator());
-    } catch (IllegalArgumentException e) {
-      this.view.renderMessage(e.getMessage());
-    }
+    Image retrieved = this.store.retrieve(this.fileName);
+    ImageTransformation brightness = new Brightness(this.amount);
+    Image processed = brightness.transform(retrieved);
+    this.store.add(this.newFileName, processed, true);
+    this.view.renderMessage(
+        "Image " + this.fileName + " has been brightened)" + System.lineSeparator());
   }
 }

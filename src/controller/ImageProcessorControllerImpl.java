@@ -95,7 +95,7 @@ public class ImageProcessorControllerImpl implements ImageProcessorController {
             c.execute();
           }
         } catch (IllegalArgumentException e) {
-          this.view.renderMessage(e.getMessage() + System.lineSeparator());
+          this.view.renderMessage("Error: " + e.getMessage() + System.lineSeparator());
         }
       }
     }

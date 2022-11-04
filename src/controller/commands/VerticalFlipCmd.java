@@ -42,15 +42,11 @@ public class VerticalFlipCmd implements ImageProcessorCmd {
 
   @Override
   public void execute() {
-    try {
-      Image retrieved = this.store.retrieve(this.fileName);
-      ImageTransformation flip = new VerticalFlip();
-      Image processed = flip.transform(retrieved);
-      this.store.add(this.newFileName, processed, true);
-      this.view.renderMessage(
-          "Image " + this.fileName + " has been flipped vertically)" + System.lineSeparator());
-    } catch (IllegalArgumentException e) {
-      this.view.renderMessage(e.getMessage() + System.lineSeparator());
-    }
+    Image retrieved = this.store.retrieve(this.fileName);
+    ImageTransformation flip = new VerticalFlip();
+    Image processed = flip.transform(retrieved);
+    this.store.add(this.newFileName, processed, true);
+    this.view.renderMessage(
+        "Image " + this.fileName + " has been flipped vertically)" + System.lineSeparator());
   }
 }
