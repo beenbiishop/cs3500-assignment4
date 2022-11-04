@@ -11,21 +11,15 @@ import model.ImageTransformation;
  */
 public class VerticalFlip implements ImageTransformation {
 
-
-  /**
-   * Constructs a new vertical flip transformation macro object.
-   */
-  public VerticalFlip() {
-  }
-
   @Override
   public Image transform(Image image) {
-    Color[][] newPixels = new Color[image.getHeight()][image.getWidth()];
-    for (int i = 0; i < image.getHeight(); i++) {
-      for (int j = 0; j < image.getWidth(); j++) {
-        Color pixel = image.getPixels()[i][j];
-        int y = image.getWidth() - j - 1;
-        newPixels[i][y] = pixel;
+    int height = image.getHeight();
+    int width = image.getWidth();
+    Color[][] newPixels = new Color[height][width];
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        Color pixel = image.getPixels()[height - i - 1][j];
+        newPixels[i][j] = pixel;
       }
     }
     return new ImageImpl(newPixels);

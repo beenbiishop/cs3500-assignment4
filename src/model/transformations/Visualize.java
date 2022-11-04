@@ -40,8 +40,8 @@ public class Visualize implements ImageTransformation {
             newValue = pixel.getBlue();
             break;
           case Luma:
-            newValue = (int) (0.2126 * pixel.getRed() + 0.7152 * pixel.getGreen()
-                + 0.0722 * pixel.getBlue());
+            newValue = ((int) (0.2126 * pixel.getRed() + 0.7152 * pixel.getGreen()
+                + 0.0722 * pixel.getBlue()));
             break;
           case Value:
             newValue = Math.max(pixel.getRed(), Math.max(pixel.getBlue(), pixel.getGreen()));
@@ -50,7 +50,8 @@ public class Visualize implements ImageTransformation {
             newValue = (pixel.getRed() + pixel.getBlue() + pixel.getGreen()) / 3;
             break;
           default:
-            throw new IllegalArgumentException("Invalid color channel.");
+            // impossible to get to this point
+            throw new IllegalArgumentException("Invalid channel");
         }
         Color newPixel = new Color(newValue, newValue, newValue);
         newPixels[i][j] = newPixel;

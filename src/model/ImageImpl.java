@@ -18,23 +18,11 @@ public class ImageImpl implements Image {
    * Constructs a new {@link ImageImpl} with the given pixels.
    *
    * @param pixels the pixels of this image state as a 2D array {@code Color[height][width]}
-   * @throws IllegalArgumentException if there is not at least one color in the given array.
+   * @throws IllegalArgumentException if there is not at least one color in the given array, or if
+   *                                  any pixels are null
    */
   public ImageImpl(Color[][] pixels) throws IllegalArgumentException {
-    if (pixels == null || pixels.length == 0 || pixels[0].length == 0) {
-      throw new IllegalArgumentException("The pixels array must contain at least one pixel");
-    }
-    this.pixels = pixels;
-  }
-
-  /**
-   * Gets the width of this image.
-   *
-   * @return the width of the image as an integer
-   */
-  public int getWidth() {
-    int width = this.pixels.length;
-    return width;
+    this.pixels = this.copyPixels(pixels);
   }
 
   /**
@@ -43,6 +31,16 @@ public class ImageImpl implements Image {
    * @return the height of the image as an integer
    */
   public int getHeight() {
+    int width = this.pixels.length;
+    return width;
+  }
+
+  /**
+   * Gets the width of this image.
+   *
+   * @return the width of the image as an integer
+   */
+  public int getWidth() {
     int height = this.pixels[0].length;
     return height;
   }
@@ -54,12 +52,39 @@ public class ImageImpl implements Image {
    * {@code Color[height][width]}
    */
   public Color[][] getPixels() {
-    return this.pixels.clone();
+    return this.copyPixels(this.pixels);
   }
 
   @Override
   public ImageImpl copy() {
-    return new ImageImpl(this.pixels);
+    return new ImageImpl(this.copyPixels(this.pixels));
+  }
+
+  /**
+   * Creates a deep copy of a given pixel 2D array of colors to ensure an image's pixels are not
+   * modified by other classes.
+   *
+   * @param original the original pixel 2D array of colors to copy
+   * @return a deep copy of the given pixel 2D array of colors
+   * @throws IllegalArgumentException if the original array is null or empty, or if any pixels are
+   *                                  null
+   */
+  private Color[][] copyPixels(Color[][] original) throws IllegalArgumentException {
+    if (original == null || original.length == 0 || original[0].length == 0) {
+      throw new IllegalArgumentException("The pixels array must contain at least one pixel");
+    }
+    Color[][] ret = new Color[original.length][original[0].length];
+    for (int i = 0; i < original.length; i++) {
+      for (int j = 0; j < original[0].length; j++) {
+        if (original[i][j] == null) {
+          throw new IllegalArgumentException("The pixels array must not contain null pixels");
+        } else {
+          Color newColor = new Color(original[i][j].getRGB());
+          ret[i][j] = newColor;
+        }
+      }
+    }
+    return ret;
   }
 }
 

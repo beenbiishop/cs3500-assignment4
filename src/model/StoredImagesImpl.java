@@ -20,7 +20,7 @@ public class StoredImagesImpl implements StoredImages {
 
   @Override
   public void add(String fileName, Image image, boolean force) {
-    if (this.exists(fileName) && force) {
+    if ((this.exists(fileName) && force) || !this.exists(fileName)) {
       this.storedImages.put(fileName, image);
     } else if (this.exists(fileName) && !force) {
       throw new IllegalArgumentException("An image with that file name already exists");
@@ -47,10 +47,12 @@ public class StoredImagesImpl implements StoredImages {
 
   @Override
   public Image retrieve(String fileName) throws IllegalArgumentException {
-    if (!this.exists(fileName)) {
-      throw new IllegalArgumentException("Image does not exist.");
+    Image retrieved = this.storedImages.get(fileName);
+    if (retrieved == null) {
+      throw new IllegalArgumentException(
+          "No image with the file name \"" + fileName + "\" has been loaded");
     } else {
-      return this.storedImages.get(fileName).copy();
+      return retrieved.copy();
     }
   }
 

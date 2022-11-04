@@ -1,15 +1,53 @@
 package controller.commands;
 
-import controller.ImageProcessorCommand;
+import controller.ImageProcessorCmd;
+import model.Image;
+import model.ImageTransformation;
 import model.StoredImages;
+import model.transformations.HorizontalFlip;
+import view.ImageProcessorView;
 
-public class HorizontalFlipCmd implements ImageProcessorCommand {
+/**
+ * Class that represents a command, "Horizontal Flip", that the processor can handle. Implements the
+ * {@code ImageProcessorCmd} interface and execute the command. Flips the image along the horizontal
+ * axis.
+ */
+
+public class HorizontalFlipCmd implements ImageProcessorCmd {
+
+  private final ImageProcessorView view;
+  private final StoredImages store;
+  private final String fileName;
+  private final String newFileName;
 
   /**
-   * @param storedImages
+   * Constructs a Horizontal Flip command.
+   *
+   * @param view        the view to display the messages to.
+   * @param store       the store to store images in.
+   * @param fileName    the file name of the image to be transformed.
+   * @param newFileName the file name of the new transformed image.
    */
-  @Override
-  public void execute(StoredImages storedImages) {
-
+  public HorizontalFlipCmd(ImageProcessorView view, StoredImages store, String fileName,
+      String newFileName) {
+    if (view == null || store == null || fileName == null || newFileName == null) {
+      throw new IllegalArgumentException("View, store, and file names cannot be null");
+    }
+    this.view = view;
+    this.store = store;
+    this.fileName = fileName;
+    this.newFileName = newFileName;
   }
+
+
+  @Override
+  public void execute() {
+    Image retrieved = this.store.retrieve(this.fileName);
+    ImageTransformation flip = new HorizontalFlip();
+    Image processed = flip.transform(retrieved);
+    this.store.add(this.newFileName, processed, true);
+    this.view.renderMessage(
+        "Image " + this.fileName + " has been flipped horizontally)" + System.lineSeparator());
+  }
+  
 }
