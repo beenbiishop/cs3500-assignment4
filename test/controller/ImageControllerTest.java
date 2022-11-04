@@ -1,5 +1,6 @@
 package controller;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import controller.commands.BrightnessCmd;
@@ -69,7 +70,7 @@ public class ImageControllerTest {
 
     ImageFileHandler ppmHandler = new ImagePPMHandler();
 
-    assertEquals(pixels, ppmHandler.process(filePath).getPixels());
+    assertArrayEquals(pixels, ppmHandler.process(filePath).getPixels());
   }
 
   @Test
@@ -129,7 +130,7 @@ public class ImageControllerTest {
       }
     }
 
-    assertEquals(newPixels, store.retrieve(newFileName).getPixels());
+    assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 
   @Test
@@ -161,7 +162,7 @@ public class ImageControllerTest {
       }
     }
 
-    assertEquals(newPixels, store.retrieve(newFileName).getPixels());
+    assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 
   @Test
@@ -194,7 +195,7 @@ public class ImageControllerTest {
     }
     Image verticalFLippedImage = new ImageImpl(newPixels);
 
-    assertEquals(newPixels, store.retrieve(newFileName).getPixels());
+    assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 
   @Test
@@ -229,7 +230,7 @@ public class ImageControllerTest {
     }
     Image visualizedImage = new ImageImpl(newPixels);
 
-    assertEquals(newPixels, store.retrieve(newFileName).getPixels());
+    assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 
   @Test
@@ -263,7 +264,7 @@ public class ImageControllerTest {
     }
     Image visualizedImage = new ImageImpl(newPixels);
 
-    assertEquals(newPixels, store.retrieve(newFileName).getPixels());
+    assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 
   @Test
@@ -297,7 +298,7 @@ public class ImageControllerTest {
     }
     Image visualizedImage = new ImageImpl(newPixels);
 
-    assertEquals(newPixels, store.retrieve(newFileName).getPixels());
+    assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 
   @Test
@@ -331,7 +332,7 @@ public class ImageControllerTest {
     }
     Image visualizedImage = new ImageImpl(newPixels);
 
-    assertEquals(newPixels, store.retrieve(newFileName).getPixels());
+    assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 
   @Test
@@ -363,7 +364,7 @@ public class ImageControllerTest {
     }
     Image visualizedImage = new ImageImpl(newPixels);
 
-    assertEquals(newPixels, store.retrieve(newFileName).getPixels());
+    assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 
   @Test
@@ -395,7 +396,7 @@ public class ImageControllerTest {
     }
     Image visualizedImage = new ImageImpl(newPixels);
 
-    assertEquals(newPixels, store.retrieve(newFileName).getPixels());
+    assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 
   //checks if the inputs are being parsed correctly

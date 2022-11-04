@@ -1,6 +1,6 @@
 package model;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 
 import java.awt.Color;
 import model.transformations.Brightness;
@@ -59,7 +59,7 @@ public class ImageModelTest {
       }
     }
 
-    assertEquals(newPixels, horFlip.transform(beforeFlipImage).getPixels());
+    assertArrayEquals(newPixels, horFlip.transform(beforeFlipImage).getPixels());
   }
 
   @Test
@@ -104,7 +104,7 @@ public class ImageModelTest {
       }
     }
 
-    assertEquals(newPixels, verFlip.transform(beforeFlipImage).getPixels());
+    assertArrayEquals(newPixels, verFlip.transform(beforeFlipImage).getPixels());
   }
 
   @Test
@@ -149,7 +149,7 @@ public class ImageModelTest {
       }
     }
 
-    assertEquals(newPixels, brightness.transform(beforeTransformationImage).getPixels());
+    assertArrayEquals(newPixels, brightness.transform(beforeTransformationImage).getPixels());
   }
 
   @Test
@@ -194,7 +194,7 @@ public class ImageModelTest {
       }
     }
 
-    assertEquals(newPixels, visualizeRed.transform(beforeTransformationImage).getPixels());
+    assertArrayEquals(newPixels, visualizeRed.transform(beforeTransformationImage).getPixels());
   }
 
   @Test
@@ -239,7 +239,7 @@ public class ImageModelTest {
       }
     }
 
-    assertEquals(newPixels, visualizeGreen.transform(beforeTransformationImage).getPixels());
+    assertArrayEquals(newPixels, visualizeGreen.transform(beforeTransformationImage).getPixels());
   }
 
   @Test
@@ -284,7 +284,7 @@ public class ImageModelTest {
       }
     }
 
-    assertEquals(newPixels, visualizeBlue.transform(beforeTransformationImage).getPixels());
+    assertArrayEquals(newPixels, visualizeBlue.transform(beforeTransformationImage).getPixels());
   }
 
   @Test
@@ -329,7 +329,7 @@ public class ImageModelTest {
       }
     }
 
-    assertEquals(newPixels, visualizeLuma.transform(beforeTransformationImage).getPixels());
+    assertArrayEquals(newPixels, visualizeLuma.transform(beforeTransformationImage).getPixels());
   }
 
   @Test
@@ -371,7 +371,7 @@ public class ImageModelTest {
       }
     }
 
-    assertEquals(newPixels, visualizeValue.transform(beforeTransformationImage).getPixels());
+    assertArrayEquals(newPixels, visualizeValue.transform(beforeTransformationImage).getPixels());
   }
 
   @Test
@@ -414,6 +414,7 @@ public class ImageModelTest {
       }
     }
 
-    assertEquals(newPixels, visualizeIntensity.transform(beforeTransformationImage).getPixels());
+    assertArrayEquals(newPixels,
+        visualizeIntensity.transform(beforeTransformationImage).getPixels());
   }
 }
