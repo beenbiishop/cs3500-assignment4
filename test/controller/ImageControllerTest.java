@@ -2,6 +2,7 @@ package controller;
 
 import static org.junit.Assert.assertEquals;
 
+import controller.commands.BrightnessCmd;
 import controller.commands.HorizontalFlipCmd;
 import controller.commands.VerticalFlipCmd;
 import controller.commands.VisualizeCmd;
@@ -79,6 +80,37 @@ public class ImageControllerTest {
 
     //idk why the imageUtil class here is not being recognized by java??
     assertEquals(util.readPPM(filePath), ppmHandler.export(loadedImage, filePath));
+  }
+
+  @Test
+  public void testBrightnessCmd() {
+    Appendable appendable = new StringBuilder();
+    ImageProcessorView view = new ImageProcessorViewImpl(appendable);
+    StoredImages store = new StoredImagesImpl();
+    String fileName = "ExampleImage.ppm";
+    String newFileName = "BrightenedImage.ppm";
+    ImageProcessorCmd brightened = new BrightnessCmd(view, store, 10, fileName, newFileName);
+    brightened.execute();
+
+    Color[][] pixels = new Color[3][3];
+    for (int i = 0; i < pixels.length; i++) {
+      for (int j = 0; j < pixels[0].length; j++) {
+        pixels[0][0] = new Color(138, 26, 226);
+        pixels[0][1] = new Color(124, 27, 229);
+        pixels[0][2] = new Color(115, 28, 232);
+        pixels[1][0] = new Color(124, 27, 229);
+        pixels[1][1] = new Color(107, 28, 234);
+        pixels[1][2] = new Color(94, 28, 237);
+        pixels[2][0] = new Color(115, 28, 232);
+        pixels[2][1] = new Color(94, 28, 237);
+        pixels[2][2] = new Color(71, 28, 241);
+
+      }
+    }
+
+    Image brightenedImage = new ImageImpl(pixels);
+
+    assertEquals(brightenedImage, store.retrieve(newFileName));
   }
 
   @Test
@@ -363,6 +395,8 @@ public class ImageControllerTest {
     ImageProcessorController controller = new ImageProcessorControllerImpl(input, view, store);
 
     controller.run();
+
+    assertEquals()
 
     //not too sure how to check this
 
