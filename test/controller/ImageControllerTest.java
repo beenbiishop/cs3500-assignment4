@@ -35,6 +35,14 @@ public class ImageControllerTest {
   String userCommandEx1;
   InputStream targetStreamEx1;
   Readable in;
+
+  String userCommandEx2;
+  InputStream targetStreamEx2;
+  Readable in2;
+
+  String userCommandEx3;
+  InputStream targetStreamEx3;
+  Readable in3;
   Appendable appendable;
   ImageProcessorView view;
   StoredImages store;
@@ -68,8 +76,15 @@ public class ImageControllerTest {
 
     this.appendable = new StringBuilder();
     this.view = new ImageProcessorViewImpl(appendable);
-
     this.store = new StoredImagesImpl();
+
+    this.userCommandEx2 = "loadr res/ExampleImage.ppm ExampleImage" + System.lineSeparator();
+    this.targetStreamEx2 = new ByteArrayInputStream(this.userCommandEx2.getBytes());
+    this.in2 = new InputStreamReader(this.targetStreamEx2);
+
+    this.userCommandEx3 = "load res ExampleImage" + System.lineSeparator();
+    this.targetStreamEx3 = new ByteArrayInputStream(this.userCommandEx3.getBytes());
+    this.in3 = new InputStreamReader(this.targetStreamEx3);
 
   }
 
@@ -87,6 +102,34 @@ public class ImageControllerTest {
             + System.lineSeparator()
             + "The parsed string for a new file's name: BrightenedImage"
             + System.lineSeparator(), log.toString());
+  }
+
+  @Test
+  public void testScript() {
+    StringBuilder log = new StringBuilder();
+    this.controller1 = new ImageProcessorControllerImpl(this.in2, this.view, this.store);
+
+    try {
+      this.controller1.run();
+    } catch (IllegalArgumentException e) {
+      this.view.renderMessage(String.valueOf(e));
+    }
+
+    assertEquals(true, this.appendable.toString().contains("Invalid command, please try again"));
+  }
+
+  @Test
+  public void testInvalidPath() {
+    StringBuilder log = new StringBuilder();
+    this.controller1 = new ImageProcessorControllerImpl(this.in3, this.view, this.store);
+
+    try {
+      this.controller1.run();
+    } catch (IllegalArgumentException e) {
+      this.view.renderMessage(String.valueOf(e));
+    }
+
+    assertEquals(true, this.appendable.toString().contains("File type not supported"));
   }
 
   @Test
@@ -227,7 +270,7 @@ public class ImageControllerTest {
   }
 
   @Test
-  public void testVisualizeCmd() {
+  public void testVisualizeRed() {
     Appendable appendable = new StringBuilder();
     ImageProcessorView view = new ImageProcessorViewImpl(appendable);
     StoredImages store = new StoredImagesImpl();

@@ -26,6 +26,15 @@ public class ImageProcessorViewImplTest {
   }
 
   @Test
+  public void testRenderWelcome() {
+    this.view.renderWelcome();
+    assertEquals("Welcome to the Image Processor!" + System.lineSeparator()
+        + "* Enter \"menu\" to see the list of supported commands or \"quit\" to exit the program"
+        + System.lineSeparator() + "* After entering a command, hit return to process it"
+        + System.lineSeparator() + "Command: ", this.appendable.toString());
+  }
+
+  @Test
   public void testRenderMenu() {
     this.view.renderMenu();
     StringBuilder sb = new StringBuilder();
