@@ -1,5 +1,4 @@
 package controller.commands;
-
 import controller.ImageProcessorCmd;
 import model.Image;
 import model.ImageTransformation;

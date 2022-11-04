@@ -1,5 +1,4 @@
 package controller.commands;
-
 import controller.ImageFileHandler;
 import controller.ImagePPMHandler;
 import controller.ImageProcessorCmd;
