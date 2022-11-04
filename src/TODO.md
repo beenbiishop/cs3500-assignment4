@@ -46,7 +46,7 @@
 
 ## Testing
 
-1. [ ] Write tests for the view
+1. [Done] Write tests for the view
 2. [ ] Maybe override hashcode and equals for controller testing
 3. [ ] Maybe re-check model tests to make sure they are correct based on no equals
 2. [ ] Go through all controller methods and ensure testing is adequate

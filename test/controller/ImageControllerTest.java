@@ -7,17 +7,21 @@ import controller.commands.BrightnessCmd;
 import controller.commands.HorizontalFlipCmd;
 import controller.commands.VerticalFlipCmd;
 import controller.commands.VisualizeCmd;
+
 import java.awt.Color;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import model.Image;
 import model.ImageImpl;
 import model.StoredImages;
 import model.StoredImagesImpl;
 import model.transformations.Visualize.Channel;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import view.ImageProcessorView;
 import view.ImageProcessorViewImpl;
 
@@ -28,6 +32,14 @@ import view.ImageProcessorViewImpl;
 public class ImageControllerTest {
 
   Image beforeImage;
+  String userCommandEx1;
+  InputStream targetStreamEx1;
+  Readable in;
+  Appendable appendable;
+  ImageProcessorView view;
+  StoredImages store;
+  ImageProcessorController controller1;
+
 
   @Before
   public void setUp() {
@@ -48,6 +60,31 @@ public class ImageControllerTest {
     }
 
     this.beforeImage = new ImageImpl(pixels);
+
+    this.userCommandEx1 = "load res/ExampleImage.ppm ExampleImage" + System.lineSeparator() +
+            "brighten 10 ExampleImage BrightenedImage";
+    this.targetStreamEx1 = new ByteArrayInputStream(this.userCommandEx1.getBytes());
+    this.in = new InputStreamReader(this.targetStreamEx1);
+
+    this.appendable = new StringBuilder();
+    this.view = new ImageProcessorViewImpl(appendable);
+
+    this.store = new StoredImagesImpl();
+
+  }
+
+  //checks if the inputs are being parsed correctly
+  @Test
+  public void testControllerInput() {
+    StringBuilder log = new StringBuilder();
+    StoredImages mockStore = new MockStoredImages(log);
+    this.controller1 = new ImageProcessorControllerImpl(this.in, this.view, mockStore);
+
+    this.controller1.run();
+    assertEquals("The parsed string for a new file's name: ExampleImage"
+            + System.lineSeparator()
+            + "The parsed string for a new file's name: BrightenedImage"
+            + System.lineSeparator(), log.toString());
   }
 
   @Test
@@ -91,7 +128,6 @@ public class ImageControllerTest {
 
     assertEquals(processedImage.getPixels(), exportedImage.getPixels());
   }
-
 
   @Test
   public void testBrightnessCmd() {
@@ -198,7 +234,7 @@ public class ImageControllerTest {
     String newFileName = "RedVisualizedImage.ppm";
     store.add(fileName, this.beforeImage, true);
     ImageProcessorCmd visualizeRed = new VisualizeCmd(view, store, Channel.Red, fileName,
-        newFileName);
+            newFileName);
     visualizeRed.execute();
 
     Color[][] newPixels = new Color[3][3];
@@ -233,7 +269,7 @@ public class ImageControllerTest {
     String newFileName = "GreenVisualizedImage.ppm";
     store.add(fileName, this.beforeImage, true);
     ImageProcessorCmd visualizeGreen = new VisualizeCmd(view, store, Channel.Green, fileName,
-        newFileName);
+            newFileName);
     visualizeGreen.execute();
 
     Color[][] newPixels = new Color[3][3];
@@ -267,7 +303,7 @@ public class ImageControllerTest {
     String newFileName = "BlueVisualizedImage.ppm";
     store.add(fileName, this.beforeImage, true);
     ImageProcessorCmd visualizeBlue = new VisualizeCmd(view, store, Channel.Blue, fileName,
-        newFileName);
+            newFileName);
     visualizeBlue.execute();
 
     Color[][] newPixels = new Color[3][3];
@@ -301,7 +337,7 @@ public class ImageControllerTest {
     String newFileName = "LumaVisualizedImage.ppm";
     store.add(fileName, this.beforeImage, true);
     ImageProcessorCmd visualizeLuma = new VisualizeCmd(view, store, Channel.Luma, fileName,
-        newFileName);
+            newFileName);
     visualizeLuma.execute();
 
     Color[][] newPixels = new Color[3][3];
@@ -335,7 +371,7 @@ public class ImageControllerTest {
     String newFileName = "ValueVisualizedImage.ppm";
     store.add(fileName, this.beforeImage, true);
     ImageProcessorCmd visualizeValue = new VisualizeCmd(view, store, Channel.Value, fileName,
-        newFileName);
+            newFileName);
     visualizeValue.execute();
 
     Color[][] newPixels = new Color[3][3];
@@ -367,7 +403,7 @@ public class ImageControllerTest {
     String newFileName = "IntensityVisualizedImage.ppm";
     store.add(fileName, this.beforeImage, true);
     ImageProcessorCmd visualizeIntensity = new VisualizeCmd(view, store, Channel.Intensity,
-        fileName, newFileName);
+            fileName, newFileName);
     visualizeIntensity.execute();
 
     Color[][] newPixels = new Color[3][3];
@@ -389,30 +425,5 @@ public class ImageControllerTest {
 
     assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
-
-  //checks if the inputs are being parsed correctly
-  @Test
-  public void testControllerInput() {
-    String userCommand = "brighten 10 koala koala-brighter";
-    InputStream targetStream = new ByteArrayInputStream(userCommand.getBytes());
-    Readable input = new InputStreamReader(targetStream);
-
-    Appendable appendable = new StringBuilder();
-    ImageProcessorView view = new ImageProcessorViewImpl(appendable);
-
-    StoredImages store = new StoredImagesImpl();
-
-    ImageProcessorController controller = new ImageProcessorControllerImpl(input, view, store);
-
-    controller.run();
-
-//    assertEquals()
-
-    //not too sure how to check this
-
-    // make two tests here, one that checks that the script is being parsed correctly
-    // another than checks that if the given input has an error, we handle it
-  }
-
 
 }
