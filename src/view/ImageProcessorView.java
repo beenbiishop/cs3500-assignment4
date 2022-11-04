@@ -16,6 +16,14 @@ public interface ImageProcessorView {
   void renderMessage(String message) throws IllegalStateException;
 
   /**
+   * Render the welcome message to the provided data destination.
+   *
+   * @throws IllegalStateException if transmission of the board to the provided data destination
+   *                               fails
+   */
+  void renderWelcome() throws IllegalStateException;
+
+  /**
    * Render the menu of commands to the provided data destination.
    *
    * @throws IllegalStateException if transmission of the board to the provided data destination

@@ -33,20 +33,26 @@ public class SaveCmd implements ImageProcessorCmd {
     this.view = view;
     this.store = store;
     this.path = path;
-    this.fileName = fileName;
+    this.fileName = fileName.toLowerCase();
   }
 
 
   @Override
-  public void execute() {
-    if (this.path.endsWith(".ppm")) {
-      ImageFileHandler handler;
-      Image retrieved = this.store.retrieve(this.fileName);
-      handler = new ImagePPMHandler();
-      handler.export(retrieved, this.path);
-      this.view.renderMessage("Image saved successfully" + System.lineSeparator() + "Command: ");
+  public void execute() throws IllegalArgumentException {
+    if (!this.path.endsWith(".ppm")) {
+      throw new IllegalArgumentException("File type not supported");
     } else {
-      this.view.renderMessage("File type not supported" + System.lineSeparator() + "Command: ");
+      try {
+        ImageFileHandler handler;
+        Image retrieved = this.store.retrieve(this.fileName);
+        handler = new ImagePPMHandler();
+        handler.export(retrieved, this.path);
+        this.view.renderMessage(
+            "\"" + this.fileName + "\" saved successfully as \"" + this.path + "\""
+                + System.lineSeparator() + "Command: ");
+      } catch (Exception e) {
+        throw new IllegalArgumentException("File not found");
+      }
     }
   }
 }

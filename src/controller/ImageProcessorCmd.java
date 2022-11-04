@@ -9,7 +9,9 @@ public interface ImageProcessorCmd {
 
   /**
    * Executes this object's command.
+   *
+   * @throws IllegalArgumentException if the command cannot be executed
    */
-  void execute();
+  void execute() throws IllegalArgumentException;
 
 }

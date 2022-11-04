@@ -28,26 +28,30 @@ public class LoadCmd implements ImageProcessorCmd {
    * @param fileName the file name of the image to be added.
    */
   public LoadCmd(ImageProcessorView view, StoredImages store, String path, String fileName) {
-    if (view == null || store == null || path == null || fileName == null) {
-      throw new IllegalArgumentException("View, store, path, and fileName cannot be null");
+    if (view == null || store == null) {
+      throw new IllegalArgumentException("View and store cannot be null");
+    }
+    if (path == null || path.isEmpty() || fileName == null || fileName.isEmpty()) {
+      throw new IllegalArgumentException("Path and file name cannot be empty");
     }
     this.view = view;
     this.store = store;
     this.path = path;
-    this.fileName = fileName;
+    this.fileName = fileName.toLowerCase();
   }
 
 
   @Override
-  public void execute() {
+  public void execute() throws IllegalArgumentException {
     if (this.path.endsWith(".ppm")) {
       ImageFileHandler handler = new ImagePPMHandler();
       Image processed = handler.process(this.path);
       this.store.add(this.fileName, processed, true);
       this.view.renderMessage(
-          "Image loaded successfully as " + this.fileName + System.lineSeparator() + "Command: ");
+          "\"" + this.path + "\" loaded successfully as \"" + this.fileName + "\""
+              + System.lineSeparator() + "Command: ");
     } else {
-      this.view.renderMessage("File type not supported" + System.lineSeparator() + "Command: ");
+      throw new IllegalArgumentException("File type not supported");
     }
   }
 }

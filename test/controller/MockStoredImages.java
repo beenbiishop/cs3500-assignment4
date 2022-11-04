@@ -21,7 +21,8 @@ public class MockStoredImages implements StoredImages {
   }
 
   /**
-   * Add a new image to the collection identified by a given file name.
+   * Add a new image to the collection identified by a given file name. And adds the message to the
+   * log.
    *
    * @param fileName the file name of the image to add
    * @param image    the image object to add

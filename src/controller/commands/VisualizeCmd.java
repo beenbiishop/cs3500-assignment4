@@ -34,24 +34,28 @@ public class VisualizeCmd implements ImageProcessorCmd {
   public VisualizeCmd(ImageProcessorView view, StoredImages store, Channel channel, String fileName,
       String newFileName) {
     if (view == null || store == null || fileName == null || channel == null) {
-      throw new IllegalArgumentException("View, store, file name, and channel cannot be null");
+      throw new IllegalArgumentException("View, store, and channel cannot be null");
+    }
+    if (fileName == null || fileName.isEmpty() || newFileName == null || newFileName.isEmpty()) {
+      throw new IllegalArgumentException("File name cannot be empty");
     }
     this.view = view;
     this.store = store;
     this.channel = channel;
-    this.fileName = fileName;
-    this.newFileName = newFileName;
+    this.fileName = fileName.toLowerCase();
+    this.newFileName = newFileName.toLowerCase();
   }
 
 
   @Override
-  public void execute() {
+  public void execute() throws IllegalArgumentException {
     Image retrieved = this.store.retrieve(this.fileName);
     ImageTransformation visualize = new Visualize(this.channel);
     Image processed = visualize.transform(retrieved);
     this.store.add(this.newFileName, processed, true);
     this.view.renderMessage(
-        "Image " + this.fileName + " has been visualized successfully by the channel "
-            + this.channel.toString() + System.lineSeparator() + "Command: ");
+        "Transformed \"" + this.fileName + "\" to visualize " + this.channel.toString()
+            .toLowerCase() + " channel and saved as \"" + this.newFileName + "\""
+            + System.lineSeparator() + "Command: ");
   }
 }

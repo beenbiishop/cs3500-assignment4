@@ -10,11 +10,11 @@
 
 ## Test each command
 
-1. [ ] `quit`
-2. [ ] `q`
-3. [ ] `menu`
-4. [ ] `load`
-5. [ ] `save`
+1. [X] `quit`
+2. [X] `q`
+3. [X] `menu`
+4. [X] `load`
+5. [X] `save`
 6. [ ] `visualize-red`
 7. [ ] `visualize-blue`
 8. [ ] `visualize-green`

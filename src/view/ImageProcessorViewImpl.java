@@ -29,26 +29,38 @@ public class ImageProcessorViewImpl implements ImageProcessorView {
   }
 
   @Override
+  public void renderWelcome() throws IllegalStateException {
+    this.renderMessage("Welcome to the Image Processor!" + System.lineSeparator());
+    this.renderMessage("* Enter \"menu\" to see the list of supported commands or \"quit\""
+        + " to exit the program" + System.lineSeparator()
+        + "* After entering a command, hit return to process it" + System.lineSeparator()
+        + "Command: ");
+  }
+
+  @Override
   public void renderMenu() throws IllegalStateException {
-    this.renderMessage("quit - quits the program" + System.lineSeparator());
+    this.renderMessage("Supported commands:" + System.lineSeparator());
+    this.renderMessage("* \"quit\" - quits the program" + System.lineSeparator());
+    this.renderMessage("* \"menu\" - displays the menu of commands" + System.lineSeparator());
     this.renderMessage(
-        "load <path> <filename> - loads an image (identified by given name) into the processor"
-            + System.lineSeparator());
+        "* \"load\" <path> <filename> - loads an image (identified by given name) into the"
+            + " processor" + System.lineSeparator());
     this.renderMessage(
-        "save <path> <filename> - saves an image to an output file" + System.lineSeparator());
-    this.renderMessage("menu - displays the menu of commands" + System.lineSeparator());
+        "* \"save\" <path> <filename> - saves an image to an output file" + System.lineSeparator());
     this.renderMessage(
-        "visualize-<component> <filename> <new filename> - transforms an image to a new image"
-            + " greyscaled using a chosen component" + System.lineSeparator());
-    this.renderMessage("brighten <amount> <filename> <new filename> - transforms an image to a "
-        + "new image brightened by an amount" + System.lineSeparator());
-    this.renderMessage("darken <amount> <filename> <new filename> - transforms an image to a "
+        "* \"visualize-<component>\" <filename> <new filename> - transforms an image to a new"
+            + " greyscale image using a chosen component" + System.lineSeparator());
+    this.renderMessage(
+        "** component can be \"red\", \"green\", \"blue\", \"\"" + System.lineSeparator());
+    this.renderMessage("* \"brighten\" <amount> <filename> <new filename> - transforms an image"
+        + " to a new image brightened by an amount" + System.lineSeparator());
+    this.renderMessage("* \"darken\" <amount> <filename> <new filename> - transforms an image to a "
         + "new image darkened by an amount" + System.lineSeparator());
-    this.renderMessage("horizontal-flip <filename> <new filename> - horizontally flips an image"
-        + " to a new image" + System.lineSeparator());
     this.renderMessage(
-        "vertical-flip <filename> <new filename> - vertically flips an image" + " to a new image"
-            + System.lineSeparator());
+        "* \"horizontal-flip\" <filename> <new filename> - horizontally flips an image"
+            + " to a new image" + System.lineSeparator());
+    this.renderMessage("* \"vertical-flip\" <filename> <new filename> - vertically flips an image"
+        + " to a new image" + System.lineSeparator());
   }
 
 }
