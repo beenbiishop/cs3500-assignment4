@@ -8,14 +8,18 @@ import java.io.IOException;
  */
 public class ImageProcessorViewImpl implements ImageProcessorView {
 
-  private Appendable appendable;
+  private final Appendable appendable;
 
   /**
    * Constructs a new ImageProcessorViewImpl object with the given appendable.
    *
-   * @param appendable the appendable to append the text to
+   * @param appendable the appendable to append the text to the user
+   * @throws IllegalArgumentException if the appendable is null
    */
-  public ImageProcessorViewImpl(Appendable appendable) {
+  public ImageProcessorViewImpl(Appendable appendable) throws IllegalArgumentException {
+    if (appendable == null) {
+      throw new IllegalArgumentException("Appendable cannot be null");
+    }
     this.appendable = appendable;
   }
 
@@ -51,7 +55,8 @@ public class ImageProcessorViewImpl implements ImageProcessorView {
         "* \"visualize-<component>\" <filename> <new filename> - transforms an image to a new"
             + " greyscale image using a chosen component" + System.lineSeparator());
     this.renderMessage(
-        "** component can be \"red\", \"green\", \"blue\", \"\"" + System.lineSeparator());
+        "    * component can be \"red\", \"green\", \"blue\", \"value\", \"intensity\", or \"luma\""
+            + System.lineSeparator());
     this.renderMessage("* \"brighten\" <amount> <filename> <new filename> - transforms an image"
         + " to a new image brightened by an amount" + System.lineSeparator());
     this.renderMessage("* \"darken\" <amount> <filename> <new filename> - transforms an image to a "

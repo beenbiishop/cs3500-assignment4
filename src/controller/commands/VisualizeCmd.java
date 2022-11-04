@@ -33,7 +33,7 @@ public class VisualizeCmd implements ImageProcessorCmd {
    */
   public VisualizeCmd(ImageProcessorView view, StoredImages store, Channel channel, String fileName,
       String newFileName) {
-    if (view == null || store == null || fileName == null || channel == null) {
+    if (view == null || store == null || channel == null) {
       throw new IllegalArgumentException("View, store, and channel cannot be null");
     }
     if (fileName == null || fileName.isEmpty() || newFileName == null || newFileName.isEmpty()) {
@@ -54,7 +54,7 @@ public class VisualizeCmd implements ImageProcessorCmd {
     Image processed = visualize.transform(retrieved);
     this.store.add(this.newFileName, processed, true);
     this.view.renderMessage(
-        "Transformed \"" + this.fileName + "\" to visualize " + this.channel.toString()
+        "Transformed \"" + this.fileName + "\" to visualize the " + this.channel.toString()
             .toLowerCase() + " channel and saved as \"" + this.newFileName + "\""
             + System.lineSeparator() + "Command: ");
   }

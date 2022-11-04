@@ -3,17 +3,16 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import model.Image;
 import model.StoredImages;
-import view.ImageProcessorView;
 
 /**
  * Creates a mock class for stored images, to return all the values being parsed to it.
  */
 public class MockStoredImages implements StoredImages {
+
   final StringBuilder log;
-  private Map<String, Image> storedImages;
+  private final Map<String, Image> storedImages;
 
   public MockStoredImages(StringBuilder log) {
     this.storedImages = new HashMap<>();
@@ -38,8 +37,8 @@ public class MockStoredImages implements StoredImages {
     } else if (this.exists(fileName) && !force) {
       throw new IllegalArgumentException("An image with that file name already exists");
     }
-    this.log.append(String.format("The parsed string for a new file's name: " + fileName
-            + System.lineSeparator()));
+    this.log.append(String.format(
+        "The parsed string for a new file's name: " + fileName + System.lineSeparator()));
   }
 
   /**
@@ -63,11 +62,12 @@ public class MockStoredImages implements StoredImages {
   @Override
   public Image retrieve(String fileName) throws IllegalArgumentException {
     Image retrieved = this.storedImages.get(fileName);
-    this.log.append(String.format("The parsed string for the name of the file to modify: " + fileName
+    this.log.append(String.format(
+        "The parsed string for the name of the file to modify: " + fileName
             + System.lineSeparator()));
     if (retrieved == null) {
       throw new IllegalArgumentException(
-              "No image with the file name \"" + fileName + "\" has been loaded");
+          "No image with the file name \"" + fileName + "\" has been loaded");
     } else {
       return retrieved.copy();
     }

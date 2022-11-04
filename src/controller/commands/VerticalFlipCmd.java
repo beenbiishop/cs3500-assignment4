@@ -35,19 +35,19 @@ public class VerticalFlipCmd implements ImageProcessorCmd {
     }
     this.view = view;
     this.store = store;
-    this.fileName = fileName;
-    this.newFileName = newFileName;
+    this.fileName = fileName.toLowerCase();
+    this.newFileName = newFileName.toLowerCase();
   }
 
 
   @Override
-  public void execute() {
+  public void execute() throws IllegalArgumentException {
     Image retrieved = this.store.retrieve(this.fileName);
     ImageTransformation flip = new VerticalFlip();
     Image processed = flip.transform(retrieved);
     this.store.add(this.newFileName, processed, true);
     this.view.renderMessage(
-        "Image " + this.fileName + " has been flipped vertically)" + System.lineSeparator()
-            + "Command: ");
+        "Vertically flipped \"" + this.fileName + "\" and saved as \"" + this.newFileName + "\""
+            + System.lineSeparator() + "Command: ");
   }
 }

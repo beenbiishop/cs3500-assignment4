@@ -40,8 +40,8 @@ public class BrightnessCmd implements ImageProcessorCmd {
     this.view = view;
     this.store = store;
     this.amount = amount;
-    this.fileName = fileName;
-    this.newFileName = newFileName;
+    this.fileName = fileName.toLowerCase();
+    this.newFileName = newFileName.toLowerCase();
   }
 
 

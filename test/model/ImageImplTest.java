@@ -1,16 +1,18 @@
 package model;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.fail;
 
 import java.awt.Color;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
  * Tests for the {@link ImageImpl} class and its methods.
  */
-public class ImageImplTest extends TestCase {
+public class ImageImplTest {
 
   private Color[][] pixels;
   private Color[][] pixels2;

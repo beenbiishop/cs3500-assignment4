@@ -31,7 +31,8 @@ public class ImagePPMHandler implements ImageFileHandler {
     while (scan.hasNextLine()) {
       String s = scan.nextLine();
       if (s.charAt(0) != '#') {
-        sb.append(s + System.lineSeparator());
+        sb.append(s);
+        sb.append(System.lineSeparator());
       }
     }
 

@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class StoredImagesImpl implements StoredImages {
 
-  private Map<String, Image> storedImages;
+  private final Map<String, Image> storedImages;
 
   /**
    * Constructs a new empty image storage object.

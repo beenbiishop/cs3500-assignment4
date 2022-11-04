@@ -29,7 +29,7 @@ public class Visualize implements ImageTransformation {
     for (int i = 0; i < image.getHeight(); i++) {
       for (int j = 0; j < image.getWidth(); j++) {
         Color pixel = oldPixels[i][j];
-        Integer newValue = null;
+        Integer newValue;
         switch (this.channel) {
           case Red:
             newValue = pixel.getRed();
@@ -51,11 +51,8 @@ public class Visualize implements ImageTransformation {
             newValue = (pixel.getRed() + pixel.getBlue() + pixel.getGreen()) / 3;
             break;
           default:
-            // impossible to get to this point
+            // should never happen
             throw new IllegalArgumentException("Invalid channel");
-        }
-        if (newValue == null) {
-          throw new IllegalArgumentException("Invalid channel");
         }
         Color newPixel = new Color(newValue, newValue, newValue);
         newPixels[i][j] = newPixel;
