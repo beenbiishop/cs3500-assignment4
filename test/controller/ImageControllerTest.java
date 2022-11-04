@@ -8,6 +8,9 @@ import controller.commands.HorizontalFlipCmd;
 import controller.commands.VerticalFlipCmd;
 import controller.commands.VisualizeCmd;
 import java.awt.Color;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import model.Image;
 import model.ImageImpl;
 import model.StoredImages;
@@ -76,31 +79,19 @@ public class ImageControllerTest {
   @Test
   public void testPPMHandlerExport() {
     String filePath = "res/ExampleImage.ppm";
+    String filePath2 = "res/ExampleImage.ppm";
 
-    ImageUtil util = new ImageUtil();
-    Color[][] pixels = new Color[3][3];
-    for (int i = 0; i < pixels.length; i++) {
-      for (int j = 0; j < pixels[0].length; j++) {
-        pixels[0][0] = new Color(128, 16, 216);
-        pixels[0][1] = new Color(114, 17, 219);
-        pixels[0][2] = new Color(105, 18, 222);
-        pixels[1][0] = new Color(114, 17, 219);
-        pixels[1][1] = new Color(97, 18, 224);
-        pixels[1][2] = new Color(84, 18, 227);
-        pixels[2][0] = new Color(105, 18, 222);
-        pixels[2][1] = new Color(84, 18, 227);
-        pixels[2][2] = new Color(61, 18, 231);
-
-      }
-    }
-
-    Image loadedImage = new ImageImpl(pixels);
+    ImageFileHandler ppmHandler1 = new ImagePPMHandler();
+    Image processedImage = ppmHandler1.process(filePath);
 
     ImageFileHandler ppmHandler = new ImagePPMHandler();
 
-    //idk why the imageUtil class here is not being recognized by java??
-    assertEquals(util.readPPM(filePath), ppmHandler.export(loadedImage, filePath));
+    ppmHandler.export(this.beforeImage, filePath2);
+    Image exportedImage = ppmHandler.process(filePath2);
+
+    assertEquals(processedImage.getPixels(), exportedImage.getPixels());
   }
+
 
   @Test
   public void testBrightnessCmd() {
@@ -400,28 +391,28 @@ public class ImageControllerTest {
   }
 
   //checks if the inputs are being parsed correctly
-//  @Test
-//  public void testControllerInput() {
-//    String userCommand = "brighten 10 koala koala-brighter";
-//    InputStream targetStream = new ByteArrayInputStream(userCommand.getBytes());
-//    Readable input = new InputStreamReader(targetStream);
-//
-//    Appendable appendable = new StringBuilder();
-//    ImageProcessorView view = new ImageProcessorViewImpl(appendable);
-//
-//    StoredImages store = new StoredImagesImpl();
-//
-//    ImageProcessorController controller = new ImageProcessorControllerImpl(input, view, store);
-//
-//    controller.run();
-//
+  @Test
+  public void testControllerInput() {
+    String userCommand = "brighten 10 koala koala-brighter";
+    InputStream targetStream = new ByteArrayInputStream(userCommand.getBytes());
+    Readable input = new InputStreamReader(targetStream);
+
+    Appendable appendable = new StringBuilder();
+    ImageProcessorView view = new ImageProcessorViewImpl(appendable);
+
+    StoredImages store = new StoredImagesImpl();
+
+    ImageProcessorController controller = new ImageProcessorControllerImpl(input, view, store);
+
+    controller.run();
+
 //    assertEquals()
-//
-//    //not too sure how to check this
-//
-//    // make two tests here, one that checks that the script is being parsed correctly
-//    // another than checks that if the given input has an error, we handle it
-//  }
+
+    //not too sure how to check this
+
+    // make two tests here, one that checks that the script is being parsed correctly
+    // another than checks that if the given input has an error, we handle it
+  }
 
 
 }
