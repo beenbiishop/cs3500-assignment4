@@ -83,6 +83,8 @@ public class ImageControllerTest {
     this.controller1.run();
     assertEquals("The parsed string for a new file's name: ExampleImage"
             + System.lineSeparator()
+            + "The parsed string for the name of the file to modify: ExampleImage"
+            + System.lineSeparator()
             + "The parsed string for a new file's name: BrightenedImage"
             + System.lineSeparator(), log.toString());
   }
@@ -126,7 +128,7 @@ public class ImageControllerTest {
     ppmHandler.export(this.beforeImage, filePath2);
     Image exportedImage = ppmHandler.process(filePath2);
 
-    assertEquals(processedImage.getPixels(), exportedImage.getPixels());
+    assertArrayEquals(processedImage.getPixels(), exportedImage.getPixels());
   }
 
   @Test
@@ -220,7 +222,6 @@ public class ImageControllerTest {
 
       }
     }
-    Image verticalFLippedImage = new ImageImpl(newPixels);
 
     assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
@@ -255,8 +256,6 @@ public class ImageControllerTest {
 
       }
     }
-    Image visualizedImage = new ImageImpl(newPixels);
-
     assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 
@@ -289,8 +288,6 @@ public class ImageControllerTest {
 
       }
     }
-    Image visualizedImage = new ImageImpl(newPixels);
-
     assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 
@@ -323,8 +320,6 @@ public class ImageControllerTest {
 
       }
     }
-    Image visualizedImage = new ImageImpl(newPixels);
-
     assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 
@@ -357,8 +352,6 @@ public class ImageControllerTest {
 
       }
     }
-    Image visualizedImage = new ImageImpl(newPixels);
-
     assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 
@@ -389,8 +382,6 @@ public class ImageControllerTest {
 
       }
     }
-    Image visualizedImage = new ImageImpl(newPixels);
-
     assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 
@@ -421,8 +412,6 @@ public class ImageControllerTest {
 
       }
     }
-    Image visualizedImage = new ImageImpl(newPixels);
-
     assertArrayEquals(newPixels, store.retrieve(newFileName).getPixels());
   }
 

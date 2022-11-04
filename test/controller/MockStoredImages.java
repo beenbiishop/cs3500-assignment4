@@ -62,6 +62,8 @@ public class MockStoredImages implements StoredImages {
   @Override
   public Image retrieve(String fileName) throws IllegalArgumentException {
     Image retrieved = this.storedImages.get(fileName);
+    this.log.append(String.format("The parsed string for the name of the file to modify: " + fileName
+            + System.lineSeparator()));
     if (retrieved == null) {
       throw new IllegalArgumentException(
               "No image with the file name \"" + fileName + "\" has been loaded");
