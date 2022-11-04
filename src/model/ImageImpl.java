@@ -28,21 +28,21 @@ public class ImageImpl implements Image {
   }
 
   /**
-   * Gets the width of this image.
-   *
-   * @return the width of the image as an integer
-   */
-  public int getWidth() {
-    int width = this.pixels.length;
-    return width;
-  }
-
-  /**
    * Gets the height of this image.
    *
    * @return the height of the image as an integer
    */
   public int getHeight() {
+    int width = this.pixels.length;
+    return width;
+  }
+
+  /**
+   * Gets the width of this image.
+   *
+   * @return the width of the image as an integer
+   */
+  public int getWidth() {
     int height = this.pixels[0].length;
     return height;
   }

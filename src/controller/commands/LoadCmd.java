@@ -4,7 +4,6 @@ package controller.commands;
 import controller.ImageFileHandler;
 import controller.ImagePPMHandler;
 import controller.ImageProcessorCmd;
-import java.awt.Color;
 import model.Image;
 import model.StoredImages;
 import view.ImageProcessorView;
@@ -49,19 +48,6 @@ public class LoadCmd implements ImageProcessorCmd {
         this.store.add(this.fileName, processed, true);
         this.view.renderMessage(
             "Image loaded successfully as " + this.fileName + System.lineSeparator());
-        StringBuilder sb = new StringBuilder();
-        sb.append(processed.getHeight()).append("x");
-        sb.append(processed.getWidth()).append(System.lineSeparator());
-        Color[][] pixelsTest = processed.getPixels();
-        for (int i = 0; i < pixelsTest.length; i++) {
-          for (int j = 0; j < pixelsTest[0].length; j++) {
-            sb.append(pixelsTest[i][j].getRed()).append(" ");
-            sb.append(pixelsTest[i][j].getGreen()).append(" ");
-            sb.append(pixelsTest[i][j].getBlue()).append(" ");
-            sb.append(System.lineSeparator());
-          }
-        }
-        this.view.renderMessage(sb.toString());
       } else {
         this.view.renderMessage("File type not supported" + System.lineSeparator());
       }
